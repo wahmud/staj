@@ -10,7 +10,7 @@ int main(void)
 
     printf("dogum yilinizi girin: ");
     int date;
-    scanf("%d", date);
+    scanf("%d", &date);
 
     printf("Merhaba %s! bu yil %d yasindasin\n", name, CURRENT_YEAR - date);
 
