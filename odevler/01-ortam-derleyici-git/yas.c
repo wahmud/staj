@@ -50,7 +50,7 @@ int main(void)
     char name[MAX_NAME_LEN];
     scanf("%s", name);
 
-    printf("dogum yilinizi girin (gg aa yyyy): ");
+    printf("dogum tarihinizi girin (gg aa yyyy): ");
     int day;
     int mon;
     int year;
