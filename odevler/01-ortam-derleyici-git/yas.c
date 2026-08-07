@@ -61,7 +61,7 @@ int main(void)
     printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, CURRENT_YEAR - year, week[week_num_of_birth]);
 
     double age = exact_age(day, mon, year);
-    printf("Ayrica tam yasin yaklasik olarak %f\n", age);
+    printf("Ayrica tam yasin yaklasik olarak %f\n", age)
 
-
+;
 }
