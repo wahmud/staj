@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
 #define   MAX_NAME_LEN   40
 #define   CURRENT_YEAR   2026
-#define   isleap(x)      x%4 == 0  ?  (x%100 == 0  ?  x%400 == 0  :  1)  :  0
+#define   isleap(x)      (x%4 == 0  ?  (x%100 == 0  ?  x%400 == 0  :  1)  :  0)
 
 
 int weekday(int d, int m, int y)
@@ -25,18 +26,73 @@ int num_of_days_at_certain_year(int d, int m, int y)
 
 double exact_age(int d, int m, int y)
 {
-    //int days = num_of_passed_day(d, m, y);
-
     time_t now = time(NULL);
     struct tm* nowadate = localtime(&now);
     int year_now = (nowadate->tm_year + 1900);
     int mon_now = (nowadate->tm_mon + 1);
     int day_now = (nowadate->tm_mday);
 
-    int num_of_days_at_year_now = num_of_days_at_certain_year(day_now, mon_now, year_now);
-    int num_of_days_at_year_birth = num_of_days_at_certain_year(d, m, y);
+    int days_now = num_of_days_at_certain_year(day_now , mon_now, year_now);
+    int days_at_birth = num_of_days_at_certain_year(d, m, y);
 
-    return ((double)year_now - (double)y) + (num_of_days_at_year_birth > num_of_days_at_year_now   ?  ((((double)365 - ((double)num_of_days_at_year_birth - (double)num_of_days_at_year_now))) / (double)365) - 1   :   (((double)num_of_days_at_year_now - (double)num_of_days_at_year_birth) / (double)365));
+    printf("days_now = %d\n", days_now);
+    printf("days_at_birth = %d\n", days_at_birth);
+    
+    double flag = 0;
+    if ((mon_now > 2 && m > 2)) {
+        if (isleap(year_now) && !isleap(y)) {
+            days_at_birth++;
+            flag = 1.0;
+            printf("flag1 = %f\n", flag);
+        }
+        else if (!isleap(year_now) && isleap(y)) {
+            days_now++;
+            flag = 1.0;
+            printf("flag2 = %f\n", flag);
+        }
+        else if (isleap(year_now) && isleap(y)) {
+            flag = 1.0;
+            printf("flag3 = %f\n", flag);
+        }
+    }
+    else if (mon_now <= 2 && m <= 2) {
+        if (isleap(year_now) || isleap(y)) {
+            flag = 1.0;
+            printf("flag4 = %f\n", flag);
+        }
+    }
+    else if (mon_now <= 2 || m <= 2) {
+        if (m > 2 && isleap(year_now) && !isleap(y)) {
+            days_at_birth++;
+            flag = 1.0;
+            printf("flag5 = %f\n", flag);
+        }
+        else if (m > 2 && isleap(year_now) && isleap(y)) {
+            flag = 1.0;
+            printf("flag6 = %f\n", flag);
+        }
+        else if (mon_now > 2 && isleap(y) && !isleap(year_now)) {
+            days_now++;
+            flag = 1.0;
+            printf("flag7 = %f\n", flag);
+        }
+        else if (mon_now > 2 && isleap(y) && isleap(year_now)) {
+            flag = 1.0;
+            printf("flag8 = %f\n", flag);
+        }
+    }
+
+    printf("days_now = %d\n", days_now);
+    printf("days_at_birth = %d\n", days_at_birth);
+
+    printf("flag_bef_cal = %f\n", flag);
+
+    if (days_at_birth > days_now) {
+        return (year_now - (double)y)    +    ((double)days_now - (double)days_at_birth) / (365.0 + flag);
+    }
+    else {
+        return (year_now - (double)y)    +    ((double)days_now - (double)days_at_birth) / (365.0 + flag);
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +117,7 @@ int main(void)
     printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, CURRENT_YEAR - year, week[week_num_of_birth]);
 
     double age = exact_age(day, mon, year);
-    printf("Ayrica tam yasin yaklasik olarak %f\n", age)
+    printf("Ayrica tam yasin yaklasik olarak %f\n", age);
 
-;
+
 }
