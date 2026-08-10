@@ -88,15 +88,41 @@ int main(void)
     int day;
     int mon;
     int year;
-    scanf("%d%d%d", &day, &mon, &year);
 
-    int week_num_of_birth = weekday(day, mon, year);
     time_t sene = time(NULL);
     struct tm* senemiz = localtime(&sene);
-    printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, senemiz->tm_year + 1900 - year, week[week_num_of_birth]);
 
-    double age = exact_age(day, mon, year);
-    printf("Ayrica tam yasin yaklasik olarak %f\n", age);
+    while (1) {
+        int scanf_cntr = scanf("%d%d%d", &day, &mon, &year);
 
+        if (scanf_cntr == 3 && day >= 1 && day <= 31 && mon >= 1 && mon <= 12 && year >= 1899 && year <= senemiz->tm_year + 1900            && (year == senemiz->tm_year + 1900 ? mon <= senemiz->tm_mon + 1 : 1)   &&   (year == senemiz->tm_year + 1900 ? (mon == senemiz->tm_mon + 1 ? day <= senemiz->tm_mday : 0) : 1)       ) {
+            if (year == senemiz->tm_year + 1900) {
+                if (mon > senemiz->tm_mon + 1) {
+                    while (getchar() != '\n');
+                    printf("lutfen gecerli bir tarih girin: ");
+                    break;
+                }
+                else if (mon == senemiz->tm_mon + 1) {
+                    if (day > senemiz->tm_mday) {
+                        while (getchar() != '\n');
+                        printf("lutfen gecerli bir tarih girin: ");
+                        break;
+                    }
+                }
+            }
+
+
+            int week_num_of_birth = weekday(day, mon, year);    
+            printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, senemiz->tm_year + 1900 - year, week[week_num_of_birth]);
+
+            double age = exact_age(day, mon, year);
+            printf("Ayrica tam yasin yaklasik olarak %f\n", age);
+            return 0;
+        }
+        else {
+            while (getchar() != '\n');
+            printf("lutfen gecerli bir tarih girin: ");
+        }
+    }
 
 }
