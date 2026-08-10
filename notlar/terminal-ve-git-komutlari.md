@@ -21,3 +21,4 @@
 20: " git config --global --list "        mevcut kullanıcı adı ve e postasını veriyor.
 21: " git remote set-url origin https://wahmud:TOKENBURAYA@github.com/wahmud/staj.git "      -----------      Bu token sormamasını sağlıyor.
 22: " git remote set-url origin https://github.com/wahmud/staj.git "                         -----------      Bu da tekrar kullanıcı adı ve token istemesini sağlıyor.
+23: " git rm --cached dosya "     ----    dosyayı git takibinden çıkarmak için kullanılır.
