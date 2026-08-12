@@ -75,6 +75,59 @@ double exact_age(int d, int m, int y)
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
+int is_real_date(int day, int mon, int year)
+{
+    if (day >= 1) {
+        if (mon == 1)
+            return day <= 31;
+        if (mon == 2) 
+            return day <= (28 + isleap(year));
+        if (mon == 3)
+            return day <= 31;
+        if (mon == 4)
+            return day <= 30;
+        if (mon == 5)
+            return day <= 31;
+        if (mon == 6)
+            return day <= 30;
+        if (mon == 7)
+            return day <= 31;
+        if (mon == 8)
+            return day <= 31;
+        if (mon == 9)
+            return day <= 30;
+        if (mon == 10)
+            return day <= 31;
+        if (mon == 11)
+            return day <= 30;
+        if (mon == 12)
+            return day <= 31;
+    }
+    return 0;
+
+}
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+int is_valid_date(int day, int mon, int year)
+{
+    time_t sene = time(NULL);
+    struct tm* senemiz = localtime(&sene);
+
+    if (is_real_date(day, mon, year) && (year >= 1899) && (year <= (senemiz->tm_year + 1900))) {
+        if ((year == senemiz->tm_year + 1900)) {
+            if (mon > senemiz->tm_mon + 1)
+                return 0;
+            else if (mon == senemiz->tm_mon + 1 && day > senemiz->tm_mday)
+                return 0;
+        }
+    }
+    else
+        return 0;
+    return 1;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 int main(void)
 {
@@ -94,34 +147,17 @@ int main(void)
 
     while (1) {
         int scanf_cntr = scanf("%d%d%d", &day, &mon, &year);
-
-        if (scanf_cntr == 3 && day >= 1 && day <= 31 && mon >= 1 && mon <= 12 && year >= 1899 && year <= senemiz->tm_year + 1900            && (year == senemiz->tm_year + 1900 ? mon <= senemiz->tm_mon + 1 : 1)   &&   (year == senemiz->tm_year + 1900 ? (mon == senemiz->tm_mon + 1 ? day <= senemiz->tm_mday : 0) : 1)       ) {
-            if (year == senemiz->tm_year + 1900) {
-                if (mon > senemiz->tm_mon + 1) {
-                    while (getchar() != '\n');
-                    printf("lutfen gecerli bir tarih girin: ");
-                    break;
-                }
-                else if (mon == senemiz->tm_mon + 1) {
-                    if (day > senemiz->tm_mday) {
-                        while (getchar() != '\n');
-                        printf("lutfen gecerli bir tarih girin: ");
-                        break;
-                    }
-                }
-            }
-
-
+        if (scanf_cntr == 3 && is_valid_date(day, mon, year)) {
             int week_num_of_birth = weekday(day, mon, year);    
             printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, senemiz->tm_year + 1900 - year, week[week_num_of_birth]);
 
             double age = exact_age(day, mon, year);
             printf("Ayrica tam yasin yaklasik olarak %f\n", age);
-            return 0;
+            break;
         }
         else {
             while (getchar() != '\n');
-            printf("lutfen gecerli bir tarih girin: ");
+            printf("Lutfen gecerli bir tarih girin: ");
         }
     }
 
