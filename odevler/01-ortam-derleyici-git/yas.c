@@ -81,7 +81,7 @@ int is_real_date(int day, int mon, int year)
         if (mon == 1)
             return day <= 31;
         if (mon == 2) 
-            return day <= (28 + isleap(year));
+            return day <= 28 + isleap(year);
         if (mon == 3)
             return day <= 31;
         if (mon == 4)
@@ -156,7 +156,12 @@ int main(void)
             break;
         }
         else {
-            while (getchar() != '\n');
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            if (c == EOF) {
+                printf("dosya sonu program sonlandirildi.\n");
+                exit(0);
+            }
             printf("Lutfen gecerli bir tarih girin: ");
         }
     }
