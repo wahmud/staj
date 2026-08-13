@@ -135,7 +135,8 @@ int main(void)
     
     printf("lutfen adinizi girin: ");
     char name[MAX_NAME_LEN];
-    scanf("%s", name);
+    scanf("%39s", name);
+    for (int c; (c = getchar()) != '\n' && c != EOF;);
 
     printf("dogum tarihinizi girin (gg aa yyyy): ");
     int day;
