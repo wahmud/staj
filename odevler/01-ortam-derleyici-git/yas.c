@@ -135,7 +135,7 @@ int main(void)
     
     printf("lutfen adinizi girin: ");
     char name[MAX_NAME_LEN];
-    scanf("%39s", name);
+    fgets(name, MAX_NAME_LEN, stdin);
     for (int c; (c = getchar()) != '\n' && c != EOF;);
 
     printf("dogum tarihinizi girin (gg aa yyyy): ");
@@ -149,7 +149,7 @@ int main(void)
     while (1) {
         int scanf_cntr = scanf("%d%d%d", &day, &mon, &year);
         if (scanf_cntr == 3 && is_valid_date(day, mon, year)) {
-            int week_num_of_birth = weekday(day, mon, year);    
+            int week_num_of_birth = weekday(day, mon, year);
             printf("Merhaba %s! bu yil %d yasindasin ve dogdugun gun %s gunuydu.\n", name, senemiz->tm_year + 1900 - year, week[week_num_of_birth]);
 
             double age = exact_age(day, mon, year);
