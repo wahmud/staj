@@ -7,24 +7,38 @@ int sayi_uret(void)
     srand(time(NULL));
     return rand() % 100 + 1;
 }
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
 int tahmin_al(void)
 {
     int value;
     while (1) {
         int scanret = scanf("%d", &value);
         
-        if (scanret && (0 < value  && value <= 100)) {
+        if (scanret == 1 && (0 < value  && value <= 100)) {
             return value;
         }
-        else if (!scanret) {
-            while (getchar() != '\n');
-            printf("lutfen bir sayi giriniz: ");
+        else if (scanret == 0) {
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            if (c == EOF) {
+                printf("\ndosya sonu program sonlandirildi.\n");
+                exit(0);
+            }
+            printf("lutfen gecerli bir sayi girin: ");
+        }
+        else if (scanret == -1) {
+            printf("\ndosya sonu program sonlandirildi.\n");
+            exit(0);
         }
         else {
-            printf("lutfen 0-100 araliginda bir sayi giriniz: ");
+            printf("lutfen 1-100 araliginda bir sayi girin: ");
         }
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 int oyunu_oynat(int sayi)
 {
@@ -46,6 +60,8 @@ int oyunu_oynat(int sayi)
         }
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 int main(void)
 {
