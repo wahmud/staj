@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #define   MAX_NAME_LEN   40
 #define   isleap(x)      (x%4 == 0  ?  (x%100 == 0  ?  x%400 == 0  :  1)  :  0)
 
@@ -132,12 +133,15 @@ int is_valid_date(int day, int mon, int year)
 int main(void)
 {
     char* week[] = {"pazar", "pazartesi", "sali", "carsamba", "persembe", "cuma", "cumartesi"};
-    
+
     printf("lutfen adinizi girin: ");
     char name[MAX_NAME_LEN];
     fgets(name, MAX_NAME_LEN, stdin);
-    for (int c; (c = getchar()) != '\n' && c != EOF;);
-
+    if (strlen(name) == 39 && name[strlen(name) - 1] != '\n') {
+        for (int c; ((c = getchar()) != '\n' && c != EOF););
+    }
+    name[strlen(name) - 1] = '\0';
+    
     printf("dogum tarihinizi girin (gg aa yyyy): ");
     int day;
     int mon;
