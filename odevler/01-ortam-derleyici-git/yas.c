@@ -136,10 +136,14 @@ int main(void)
 
     printf("lutfen adinizi girin: ");
     char name[MAX_NAME_LEN];
-    fgets(name, MAX_NAME_LEN, stdin);
+    char* fgets_ret = fgets(name, MAX_NAME_LEN, stdin);
+    if (!fgets_ret) {
+        printf("dosya sonu program sonlandirildi.\n");
+        exit(0);
+}
     if (strlen(name) == 39 && name[strlen(name) - 1] != '\n')
         for (int c; ((c = getchar()) != '\n' && c != EOF););
-    else
+    else 
         name[strlen(name) - 1] = '\0';
 
     printf("dogum tarihinizi girin (gg aa yyyy): ");
