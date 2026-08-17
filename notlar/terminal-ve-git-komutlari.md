@@ -30,10 +30,13 @@
 16: " git restore --staged . "                          ---------       tüm dosyları çıkarmak için
 
 
-00: " git restore dosya "                               ---------       Stage edilmemiş değişiklikleri geri döndürür, ve yerel olarak siler
+00: " git restore dosya "                               ---------       Stage edilmemiş değişiklikleri geri döndürür, ve değişiklikleri yerel olarak siler
 
 
 17: " git commit -m "commit mesajı" "                   ---------       ile commit etme
+
+
+00: " git commit --amend -m "yeni mesaj" "              ---------       en son yapılan komit mesajını yeniden düzenler
 
 
 18: " git remote add origin <adres> "                   ---------       repo için YENİ bir bağlama yapılacaksa
