@@ -37,6 +37,8 @@ int main(void)
     // printf("bosluk sayisi = %d\n", space_cnt);
     // printf("toplam karakter sayisi   = %d\n", total_cnt);
     
+
+
     int word_cnt = 0;
     for (int i = 1; i < strlen(metin); ++i) {
         int is_space = 0;
@@ -48,6 +50,18 @@ int main(void)
             ++word_cnt;
         }
     }
-    printf("kelime sayisi = %d\n", word_cnt);
+    //printf("kelime sayisi = %d\n", word_cnt);
+
+
+    int sayac[26] = { 0 };
+    for (int i = 0; i < strlen(metin); ++i) {
+        if (isalpha(metin[i]))
+            ++sayac[tolower(metin[i]) - 'a'];
+    }
+    printf("Metnin harf frekansi:\n");
+    for (int i = 0; i < 26; ++i) {
+        if (sayac[i])
+            printf("%c: %d\n", 'a' + i, sayac[i]);
+    }
 
 }
