@@ -53,15 +53,36 @@ int main(void)
     //printf("kelime sayisi = %d\n", word_cnt);
 
 
+
     int sayac[26] = { 0 };
     for (int i = 0; i < strlen(metin); ++i) {
         if (isalpha(metin[i]))
             ++sayac[tolower(metin[i]) - 'a'];
     }
-    printf("Metnin harf frekansi:\n");
+    //printf("Metnin harf frekansi:\n");
     for (int i = 0; i < 26; ++i) {
-        if (sayac[i])
-            printf("%c: %d\n", 'a' + i, sayac[i]);
+        if (sayac[i]){}
+            //printf("%c: %d\n", 'a' + i, sayac[i]);
     }
+
+
+    char en_uzun[201];
+    int kelime_indeksi = 0;
+    int kelime_boyutu = 0;
+    int temp_cnt = 0;
+    for (int i = 0; i < strlen(metin) + 1; ++i) {
+        if ((isalpha(metin[i]) || isdigit(metin[i]))) 
+            ++temp_cnt;
+        else {
+            if (kelime_boyutu < temp_cnt) {
+                kelime_boyutu = temp_cnt;
+                kelime_indeksi = i - temp_cnt;
+            }
+            temp_cnt = 0;
+        }
+    }
+    strncpy(en_uzun, metin + kelime_indeksi, kelime_boyutu);
+    en_uzun[kelime_boyutu] = '\0';
+    printf("en uzun kelime:\n%s\n", en_uzun);
 
 }
