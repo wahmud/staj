@@ -1,11 +1,23 @@
 #include <stdio.h>
-size_t get_size(int* a)
-{
-    return sizeof(a) / sizeof(a[0]);
-}
+#include <string.h>
+#include <stdlib.h>
+
 int main(void)
 {
-    int sayilar[] = {3, 7, 1, 9, 4};
-    printf("eleman sayisi = %zu\n", sizeof(sayilar) / sizeof(sayilar[0]));
-    printf("eleman sayisi = %zu\n", get_size(sayilar));
+    char metin[201];
+    printf("metni girin:\n");
+    char* fgets_ret = fgets(metin, 201, stdin);
+    if (!fgets_ret) {
+        printf("dosya sonu program sonlandirildi\n");
+        exit(0);
+    }
+    
+    if (strlen(metin) == 200 && metin[strlen(metin) - 1] != '\n') {
+        for (int c; (c = getchar()) != '\n' && c != EOF;);
+    }
+    else {
+        metin[strlen(metin) - 1] = '\0';
+    }
+    printf("%s\n", metin);
+
 }
