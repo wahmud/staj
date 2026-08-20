@@ -143,7 +143,7 @@ int main(void)
 }
     if (strlen(name) == 39 && name[strlen(name) - 1] != '\n')
         for (int c; ((c = getchar()) != '\n' && c != EOF););
-    else 
+    else if (name[strlen(name) - 1] == '\n')
         name[strlen(name) - 1] = '\0';
 
     printf("dogum tarihinizi girin (gg aa yyyy): ");
