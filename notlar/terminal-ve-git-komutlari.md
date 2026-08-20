@@ -8,7 +8,7 @@
 8:  " cd "                                              ---------       konumu terk eder
 9:  " cd .. "                                           ---------       bir üste geçer
 10: " cd klasörünadı "                                  ---------       eğer mevcutsa verilen konuma geçer.
-
+11: " printf '(GIRIS)' | program                        ---------       GIRIS'i stdin'den programa verir, bir sonraki giriş için ise EOF gönderir. (ipucu: 'a\n1\n2' şeklindeki bir girişte a (enter) 1 (enter) 2 (enter) şeklinde elle girmiş gibi olur sadece sonraki girişlerde EOF sıkıntısı var) 
 
 --  git komutları: 
 
