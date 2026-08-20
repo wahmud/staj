@@ -97,9 +97,8 @@ int main(void)
     if (strlen(metin) == 200 && metin[strlen(metin) - 1] != '\n') {
         for (int c; (c = getchar()) != '\n' && c != EOF;);
     }
-    else {
+    else if (metin[strlen(metin) - 1] == '\n')
         metin[strlen(metin) - 1] = '\0';
-    }
 
     printf("\n\n");
     print_types_of_chars_on_str(metin);
