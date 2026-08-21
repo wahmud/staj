@@ -94,9 +94,8 @@ int main(void)
         exit(0);
     }
     
-    if (strlen(metin) == 200 && metin[strlen(metin) - 1] != '\n') {
+    if (metin[strlen(metin) - 1] != '\n')
         for (int c; (c = getchar()) != '\n' && c != EOF;);
-    }
     else if (metin[strlen(metin) - 1] == '\n')
         metin[strlen(metin) - 1] = '\0';
 
