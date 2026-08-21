@@ -141,7 +141,7 @@ int main(void)
         printf("dosya sonu program sonlandirildi.\n");
         exit(0);
 }
-    if (strlen(name) == 39 && name[strlen(name) - 1] != '\n')
+    if (name[strlen(name) - 1] != '\n')
         for (int c; ((c = getchar()) != '\n' && c != EOF););
     else if (name[strlen(name) - 1] == '\n')
         name[strlen(name) - 1] = '\0';
