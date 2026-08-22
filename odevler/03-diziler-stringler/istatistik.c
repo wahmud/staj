@@ -25,15 +25,15 @@ int alpha_cnt = 0;
 
 void print_num_of_words_on_str(char * m)
 {
-int word_cnt = 0;
-    for (int i = 1; i < strlen(m); ++i) {
-        int is_space = 0;
-        is_space = m[i - 1] == ' ';
-        if (is_space && (isalpha(m[i]) || isdigit(m[i]))) {
+    int word_cnt = 0;
+    int is_space = 1;
+    for (int i = 0; i < strlen(m); ++i) {
+        if (!isspace(m[i]) && is_space) {
             ++word_cnt;
+            is_space = 0;
         }
-        else if (i == 1 && (isalpha(m[i - 1]) || isdigit(m[i - 1]))) {
-            ++word_cnt;
+        else if (isspace(m[i])) {
+            is_space = 1;
         }
     }
     printf("kelime sayisi = %d\n", word_cnt);
@@ -99,15 +99,15 @@ int main(void)
     else if (metin[strlen(metin) - 1] == '\n')
         metin[strlen(metin) - 1] = '\0';
 
-    printf("\n\n");
-    print_types_of_chars_on_str(metin);
-    printf("\n\n");
+    // printf("\n\n");
+    // print_types_of_chars_on_str(metin);
+    // printf("\n\n");
 
     print_num_of_words_on_str(metin);
-    printf("\n\n");
+    // printf("\n\n");
 
-    print_freqs_of_letters_on_str(metin);
-    printf("\n\n");
+    // print_freqs_of_letters_on_str(metin);
+    // printf("\n\n");
     
-    print_longest_word_on_str(metin);
+    // print_longest_word_on_str(metin);
 }
