@@ -108,15 +108,15 @@ int main(void)
     else if (metin[strlen(metin) - 1] == '\n')
         metin[strlen(metin) - 1] = '\0';
 
-    // printf("\n\n");
-    // print_types_of_chars_on_str(metin);
-    // printf("\n\n");
+    printf("\n\n");
+    print_types_of_chars_on_str(metin);
+    printf("\n\n");
 
-    // print_num_of_words_on_str(metin);
-    // printf("\n\n");
+    print_num_of_words_on_str(metin);
+    printf("\n\n");
 
-    // print_freqs_of_letters_on_str(metin);
-    // printf("\n\n");
+    print_freqs_of_letters_on_str(metin);
+    printf("\n\n");
     
     print_longest_word_on_str(metin);
 }
