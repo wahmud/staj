@@ -61,19 +61,25 @@ void print_freqs_of_letters_on_str(char* m)
 
 void print_longest_word_on_str(char* m)
 {
-char en_uzun[201];
+    char en_uzun[201];
+
+    int temp_cnt = 0;
     int kelime_indeksi = 0;
     int kelime_boyutu = 0;
-    int temp_cnt = 0;
-    for (int i = 0; i < strlen(m) + 1; ++i) {
-        if ((isalpha(m[i]) || isdigit(m[i]))) 
+    for (int i = 0; i < strlen(m); ++i) {
+        if (!isspace(m[i])) {
             ++temp_cnt;
+        }
         else {
             if (kelime_boyutu < temp_cnt) {
                 kelime_boyutu = temp_cnt;
                 kelime_indeksi = i - temp_cnt;
             }
             temp_cnt = 0;
+        }
+        if ((i == strlen(m) - 1) && kelime_boyutu < temp_cnt) {
+                kelime_boyutu = temp_cnt;
+                kelime_indeksi = i - temp_cnt + 1;
         }
     }
     strncpy(en_uzun, m + kelime_indeksi, kelime_boyutu);
@@ -103,11 +109,11 @@ int main(void)
     // print_types_of_chars_on_str(metin);
     // printf("\n\n");
 
-    print_num_of_words_on_str(metin);
+    // print_num_of_words_on_str(metin);
     // printf("\n\n");
 
     // print_freqs_of_letters_on_str(metin);
     // printf("\n\n");
     
-    // print_longest_word_on_str(metin);
+    print_longest_word_on_str(metin);
 }
