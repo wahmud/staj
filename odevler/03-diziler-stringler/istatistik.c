@@ -4,7 +4,7 @@
 #include <ctype.h>
 void print_types_of_chars_on_str(char* m)
 {
-int alpha_cnt = 0;
+    int alpha_cnt = 0;
     int digit_cnt = 0;
     int space_cnt = 0;
     int total_cnt = 0;
@@ -25,9 +25,10 @@ int alpha_cnt = 0;
 
 void print_num_of_words_on_str(char * m)
 {
+    size_t size = strlen(m);
     int word_cnt = 0;
     int is_space = 1;
-    for (int i = 0; i < strlen(m); ++i) {
+    for (int i = 0; i < (int)size; ++i) {
         if (!isspace(m[i]) && is_space) {
             ++word_cnt;
             is_space = 0;
@@ -44,8 +45,9 @@ void print_num_of_words_on_str(char * m)
 
 void print_freqs_of_letters_on_str(char* m)
 {
+    size_t size = strlen(m);
     int sayac[26] = { 0 };
-    for (int i = 0; i < strlen(m); ++i) {
+    for (int i = 0; i < (int)size; ++i) {
         if (isalpha(m[i]))
             ++sayac[tolower(m[i]) - 'a'];
     }
@@ -62,11 +64,12 @@ void print_freqs_of_letters_on_str(char* m)
 void print_longest_word_on_str(char* m)
 {
     char en_uzun[201];
+    size_t size = strlen(m);
 
     int temp_cnt = 0;
     int kelime_indeksi = 0;
     int kelime_boyutu = 0;
-    for (int i = 0; i < strlen(m); ++i) {
+    for (int i = 0; i < (int)size; ++i) {
         if (!isspace(m[i])) {
             ++temp_cnt;
         }
@@ -77,7 +80,7 @@ void print_longest_word_on_str(char* m)
             }
             temp_cnt = 0;
         }
-        if ((i == strlen(m) - 1) && kelime_boyutu < temp_cnt) {
+        if ((i == (int)size - 1) && kelime_boyutu < temp_cnt) {
                 kelime_boyutu = temp_cnt;
                 kelime_indeksi = i - temp_cnt + 1;
         }
