@@ -140,7 +140,7 @@ int main(void)
     if (!fgets_ret) {
         printf("dosya sonu program sonlandirildi.\n");
         exit(0);
-}
+    }
     if (name[strlen(name) - 1] != '\n')
         for (int c; ((c = getchar()) != '\n' && c != EOF););
     else if (name[strlen(name) - 1] == '\n')
