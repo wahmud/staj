@@ -139,7 +139,7 @@ int main(void)
     char* fgets_ret = fgets(name, MAX_NAME_LEN, stdin);
     if (!fgets_ret) {
         printf("dosya sonu program sonlandirildi.\n");
-        exit(0);
+        return 1;
     }
     if (name[strlen(name) - 1] != '\n')
         for (int c; ((c = getchar()) != '\n' && c != EOF););
@@ -169,7 +169,7 @@ int main(void)
             while ((c = getchar()) != '\n' && c != EOF);
             if (c == EOF) {
                 printf("dosya sonu program sonlandirildi.\n");
-                exit(0);
+                return 1;
             }
             printf("Lutfen gecerli bir tarih girin: ");
         }
