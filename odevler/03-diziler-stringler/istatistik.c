@@ -100,7 +100,7 @@ int main(void)
     char* fgets_ret = fgets(metin, 201, stdin);
     if (!fgets_ret) {
         printf("dosya sonu program sonlandirildi\n");
-        exit(0);
+        return 1;
     }
     
     if (metin[strlen(metin) - 1] != '\n')
