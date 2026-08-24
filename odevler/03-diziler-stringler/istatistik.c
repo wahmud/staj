@@ -9,9 +9,9 @@ void print_types_of_chars_on_str(char* m)
     int space_cnt = 0;
     int total_cnt = 0;
     for (int i = 0; m[i] != '\0'; ++i) {
-        alpha_cnt += !!isalpha(m[i]);
-        digit_cnt += !!isdigit(m[i]);
-        space_cnt += !!isspace(m[i]);
+        alpha_cnt += !!isalpha((unsigned char)m[i]);
+        digit_cnt += !!isdigit((unsigned char)m[i]);
+        space_cnt += !!isspace((unsigned char)m[i]);
         ++total_cnt;
     }
     printf("harf sayisi   = %d\n", alpha_cnt);
@@ -29,11 +29,11 @@ void print_num_of_words_on_str(char * m)
     int word_cnt = 0;
     int is_space = 1;
     for (int i = 0; i < (int)size; ++i) {
-        if (!isspace(m[i]) && is_space) {
+        if (!isspace((unsigned char)m[i]) && is_space) {
             ++word_cnt;
             is_space = 0;
         }
-        else if (isspace(m[i])) {
+        else if (isspace((unsigned char)m[i])) {
             is_space = 1;
         }
     }
@@ -48,8 +48,8 @@ void print_freqs_of_letters_on_str(char* m)
     size_t size = strlen(m);
     int sayac[26] = { 0 };
     for (int i = 0; i < (int)size; ++i) {
-        if (isalpha(m[i]))
-            ++sayac[tolower(m[i]) - 'a'];
+        if (isalpha((unsigned char)m[i]))
+            ++sayac[tolower((unsigned char)m[i]) - 'a'];
     }
     printf("Metnin harf frekansi:\n");
     for (int i = 0; i < 26; ++i) {
@@ -70,7 +70,7 @@ void print_longest_word_on_str(char* m)
     int kelime_indeksi = 0;
     int kelime_boyutu = 0;
     for (int i = 0; i < (int)size; ++i) {
-        if (!isspace(m[i])) {
+        if (!isspace((unsigned char)m[i])) {
             ++temp_cnt;
         }
         else {
