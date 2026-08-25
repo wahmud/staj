@@ -38,6 +38,14 @@ int main(void)
         }
     }
 
+    int ch;
+    while ((ch = getchar()) != '\n') {
+        if (!isspace(ch)) {
+            printf("Taahhut edilenden fazla deger girildi!\n");
+            return 1;
+        }
+    }
+
     printf("Dizi = {\n   ");
     for (size_t i = 0; i < n; ++i) {
         printf("%-2d ", dizi[i]);
