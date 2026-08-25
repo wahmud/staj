@@ -4,7 +4,7 @@
 int main(void)
 {
     size_t n;
-    printf("gireceginiz sayi adedini yazin: ");
+    printf("Gireceginiz sayi adedini yazin: ");
     int scanret = scanf("%zu", &n);
     if (scanret <= 0) {
         int c;
@@ -51,5 +51,13 @@ int main(void)
         printf("%-2d ", dizi[i]);
     }
     printf("\n}\n");
+
+    int toplam = 0;
+    for (size_t i = 0; i < n; ++i) {
+        toplam += dizi[i];
+    }
+    printf("Sayilarin toplami = %d\n", toplam);
+
+    free(dizi);
 
 }
