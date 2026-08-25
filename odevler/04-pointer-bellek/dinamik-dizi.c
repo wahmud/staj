@@ -16,6 +16,12 @@ int main(void)
         printf("Gecersiz giris yapildi!\n");
         return 1;
     }
+    
+    long long is_sub = n;
+    if (is_sub < 0) {
+        printf("Negatif deger girildi!\n");
+        return 1;
+    }
 
     int* dizi = (int*)malloc(n * sizeof(*dizi));
     if (!dizi) {
@@ -32,7 +38,7 @@ int main(void)
         }
     }
 
-    printf("Dizi = {\n");
+    printf("Dizi = {\n   ");
     for (size_t i = 0; i < n; ++i) {
         printf("%-2d ", dizi[i]);
     }
