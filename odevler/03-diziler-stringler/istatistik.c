@@ -61,15 +61,15 @@ void print_freqs_of_letters_on_str(char* m)
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-void print_longest_word_on_str(char* m)
+char* print_longest_word_on_str(char* m)
 {
-    char en_uzun[201];
     size_t size = strlen(m);
 
     int temp_cnt = 0;
     int kelime_indeksi = 0;
     int kelime_boyutu = 0;
-    for (int i = 0; i < (int)size; ++i) {
+    int i;
+    for (i = 0; i < (int)size; ++i) {
         if (!isspace((unsigned char)m[i])) {
             ++temp_cnt;
         }
@@ -80,14 +80,15 @@ void print_longest_word_on_str(char* m)
             }
             temp_cnt = 0;
         }
-        if ((i == (int)size - 1) && kelime_boyutu < temp_cnt) {
-                kelime_boyutu = temp_cnt;
-                kelime_indeksi = i - temp_cnt + 1;
-        }
     }
+    if (kelime_boyutu < temp_cnt) {
+        kelime_boyutu = temp_cnt;
+        kelime_indeksi = i - temp_cnt;
+    }
+    char* en_uzun = (char*)malloc(kelime_boyutu + 1);
     strncpy(en_uzun, m + kelime_indeksi, kelime_boyutu);
     en_uzun[kelime_boyutu] = '\0';
-    printf("en uzun kelime:\n%s\n", en_uzun);
+    return en_uzun;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -118,5 +119,7 @@ int main(void)
     print_freqs_of_letters_on_str(metin);
     printf("\n\n");
     
-    print_longest_word_on_str(metin);
+    char* en_uzun = print_longest_word_on_str(metin);
+    printf("en uzun kelime = \n%s\n", en_uzun);
+    free(en_uzun);
 }
