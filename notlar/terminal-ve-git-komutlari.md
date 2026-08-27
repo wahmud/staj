@@ -1,7 +1,8 @@
 1:  " wsl "                                             ---------       linuxa geçiş yapar.
 2:  " gcc dosya.c -o dosya "                            ---------       dosyayı derler
 3:  " gcc -Wall dosya.c -o dosya "                      ---------       dosyayı derlerken uyarı mesajlarını da aktif eder
-4: " gcc -Wall -Wextra dosya.c -o dosya                 ---------       dosyayı derlerken daha kapsamlı uyarıları da aktif eder
+4:  " gcc -Wall -Wextra dosya.c -o dosya "              ---------       dosyayı derlerken daha kapsamlı uyarıları da aktif eder
+0:  " gcc -Wall -Wextra -g -fsanitize=address -o dosya dosya.c "        Çalışırken bellek hatalarını yakalayan bir denetleyici ile derliyor.
 5:  " ./dosya "                                         ---------       derlenmiş dosyayı çalıştırır
 6:  " mv dosya.c klasor1/klasor2/dosya.c "              ---------       dosya.c'yi bu adrese taşır
 7:  " mv dosya ../ "                                    ---------       dosyayı bir üste taşır
