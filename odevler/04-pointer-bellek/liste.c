@@ -3,22 +3,6 @@
 #include <ctype.h>
 #include <string.h>
 #define  MIN_LIST_SIZE  4
-int liste_loop_asist(int i)
-{
-    static int is_arrived = MIN_LIST_SIZE;
-    if (is_arrived == i) {
-        is_arrived *= 2;
-        return 1;
-    }
-    return 0;
-}
-
-size_t liste_realloc_size_asist(void)
-{
-    static size_t cnt = sizeof(char*) * MIN_LIST_SIZE;
-    cnt *= 2;
-    return cnt;
-}
 
 char* liste_read_and_take_row(void)
 {
@@ -27,12 +11,12 @@ char* liste_read_and_take_row(void)
     if (!fgets_ret) {
         return NULL;
     }
-    size_t size = strlen(temp_row);
-    if (temp_row[size - 1] != '\n')
+    if (temp_row[strlen(temp_row) - 1] != '\n')
     for (int ch1;(ch1 = getchar()) != '\n' && ch1 != EOF;);
     else
-    temp_row[size - 1] = '\0';
-    
+    temp_row[strlen(temp_row) - 1] = '\0';
+
+    size_t size = strlen(temp_row);
     char* row = (char*)malloc(size + 1);
     if (!row) {
         printf("Bellek yetersiz!\n");
@@ -42,13 +26,13 @@ char* liste_read_and_take_row(void)
     return row;
 }
 
-void liste_realloc(char*** p_liste)
+void liste_realloc(char*** p_liste, int cnt)
 {
     size_t size_representation;
-    char** temp = (char**)realloc(*p_liste, size_representation = liste_realloc_size_asist());
+    char** temp = (char**)realloc(*p_liste, size_representation = (sizeof(char*) * cnt));
     if (temp) {
         *p_liste = temp;
-        printf("%zu adede kadar giris yapabilirsiniz:\n", size_representation / 16);
+        printf("Bellek alani %zu adede cikarildi:\n", size_representation / (sizeof(char*)));
     }
     else {
         printf("Bellek yetersiz!\n");
@@ -81,11 +65,14 @@ int main(void)
         printf("Bellek yetersiz!\n");
         return 1;
     }
+    printf("4 girislik bellek alani var\n");
     printf("Satirlari girin:\n");
     int i;
+    int is_arrived = MIN_LIST_SIZE;
     for (i = 0; ; ++i) {
-            if (liste_loop_asist(i)) {
-                liste_realloc(&liste);
+            if (i == is_arrived) {
+                is_arrived *= 2;
+                liste_realloc(&liste, is_arrived);
             }
             liste[i] = liste_read_and_take_row();
             if (!liste[i])
