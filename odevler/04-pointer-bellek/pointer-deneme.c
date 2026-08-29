@@ -22,26 +22,26 @@ void print_num_of_words_on_str(char * p)
 
 int main(void)
 {
-    // int sayi = 42;
-    // int* p = &sayi;
-    // printf("sayi = %d\np = %p\n", sayi, (void*)p);
+    int sayi = 42;
+    int* p = &sayi;
+    printf("sayi = %d\n*p = %d\np = %p\n", sayi, *p, (void*)p);
 
-    // *p = 99;
-    // printf("sayi = %d\np = %p\n\n", sayi, (void*)p);
-    
+    *p = 99;
+    printf("sayi = %d\np = %p\n\n", sayi, (void*)p);
+
 
     char metin[] = "merhaba   dunya";
-    // printf("metin dizisi: %p  %p  %p\n", metin, &metin[0], &metin);
+    printf("metin = %p\n&metin[0] = %p\n&metin = %p\n", metin, &metin[0], &metin);
 
-    // printf("\n");
-    // int dizi[] = {10, 20, 30, 40};
-    // int* q = dizi;
-    // printf("    q = %p\nq + 1 = %p\n", (void*)q, (void*)(q + 1));
-    
-    // printf("\n");
-    
-    // char* r = metin;
-    // printf("    r = %p\nr + 1 = %p\n", (void*)r, (void*)(r + 1));
+    printf("\n");
+    int dizi[] = {10, 20, 30, 40};
+    int* q = dizi;
+    printf("    q = %p\nq + 1 = %p\n", (void*)q, (void*)(q + 1));
+
+    printf("\n");
+
+    char* r = metin;
+    printf("    r = %p\nr + 1 = %p\n", (void*)r, (void*)(r + 1));
 
     print_num_of_words_on_str(metin);
 
