@@ -86,6 +86,8 @@ char* print_longest_word_on_str(char* m)
         kelime_indeksi = i - temp_cnt;
     }
     char* en_uzun = (char*)malloc(kelime_boyutu + 1);
+    if (!en_uzun)
+        return en_uzun;
     strncpy(en_uzun, m + kelime_indeksi, kelime_boyutu);
     en_uzun[kelime_boyutu] = '\0';
     return en_uzun;
@@ -120,6 +122,11 @@ int main(void)
     printf("\n\n");
     
     char* en_uzun = print_longest_word_on_str(metin);
-    printf("en uzun kelime = \n%s\n", en_uzun);
+    if (!en_uzun) {
+        printf("Bellek yetersiz\nEn uzun kelime basilamadi\n");
+    }
+    else {
+    printf("en uzun kelime:\n%s\n", en_uzun);
     free(en_uzun);
+    }
 }
