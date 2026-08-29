@@ -3,9 +3,9 @@
 #include <ctype.h>
 int main(void)
 {
-    size_t n;
+    int value;
     printf("Gireceginiz sayi adedini yazin: ");
-    int scanret = scanf("%zu", &n);
+    int scanret = scanf("%d", &value);
     if (scanret <= 0) {
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
@@ -17,11 +17,11 @@ int main(void)
         return 1;
     }
     
-    long long is_sub = n;
-    if (is_sub < 0) {
+    if (value < 0) {
         printf("Negatif deger girildi!\n");
         return 1;
     }
+    size_t n = (size_t)value;
 
     int* dizi = (int*)malloc(n * sizeof(*dizi));
     if (!dizi) {
@@ -34,14 +34,16 @@ int main(void)
         int for_scanret = scanf("%d", dizi + i);
         if (for_scanret <= 0) {
             printf("Sayi girisi sekteye ugradi!\n");
+            free(dizi);
             return 1;
         }
     }
 
     int ch;
-    while ((ch = getchar()) != '\n') {
+    while ((ch = getchar()) != '\n' && ch != EOF) {
         if (!isspace(ch)) {
             printf("Taahhut edilenden fazla deger girildi!\n");
+            free(dizi);
             return 1;
         }
     }
