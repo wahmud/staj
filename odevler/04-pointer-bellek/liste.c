@@ -25,8 +25,7 @@ char* liste_read_and_take_row(void)
     char temp_row[201];
     char* fgets_ret = fgets(temp_row, 201, stdin);
     if (!fgets_ret) {
-        printf("Dosya sonu program sonlandirildi\n");
-        exit(1);
+        return NULL;
     }
     size_t size = strlen(temp_row);
     if (temp_row[size - 1] != '\n')
@@ -82,35 +81,15 @@ int main(void)
         printf("Bellek yetersiz!\n");
         return 1;
     }
-    
+    printf("Satirlari girin:\n");
     int i;
-    int init_flag = 1;
     for (i = 0; ; ++i) {
-        int ch_ = 0;
-        if (!init_flag) {
-            printf("Daha giris yapmak istiyor musunuz? (e/h):");
-            while ((ch_ = getchar()) != 'e' && ch_ != 'h' && ch_ != EOF) {
-                for (;(ch_ = getchar()) != '\n';);
-                printf("Daha giris yapmak istiyor musunuz? (e/h):");
-            }
-            for (int ch2; (ch2 = getchar()) != '\n' && ch2 != EOF;);
-        }
-        
-        if (ch_ == 'e' || init_flag == 1) {
-            printf("Giris yapin:\n");
             if (liste_loop_asist(i)) {
                 liste_realloc(&liste);
             }
             liste[i] = liste_read_and_take_row();
-        }
-        else if (ch_ == 'h')
-            break;
-        else {
-            printf("Dosya sonu program sonlandirildi\n");
-            liste_free_all_so_far(liste, i);
-            return 1;
-        }
-        init_flag = 0;
+            if (!liste[i])
+                break;
     }
     liste_print_rows(liste, i);
 
