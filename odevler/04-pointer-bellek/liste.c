@@ -3,40 +3,41 @@
 #include <ctype.h>
 #include <string.h>
 #define  MIN_LIST_SIZE  4
+#define  TEMP_ROW_SIZE  201
 
-char* liste_read_and_take_row(void)
+char* liste_fgets_temp_row(char* temp_row)
 {
-    char temp_row[201];
-    char* fgets_ret = fgets(temp_row, 201, stdin);
+char* fgets_ret = fgets(temp_row, TEMP_ROW_SIZE, stdin);
     if (!fgets_ret) {
-        return NULL;
+        return fgets_ret;
     }
     if (temp_row[strlen(temp_row) - 1] != '\n')
-    for (int ch1;(ch1 = getchar()) != '\n' && ch1 != EOF;);
+        for (int ch1;(ch1 = getchar()) != '\n' && ch1 != EOF;);
     else
-    temp_row[strlen(temp_row) - 1] = '\0';
-
+        temp_row[strlen(temp_row) - 1] = '\0';
+    return fgets_ret;
+}
+char* liste_malloc_and_copy_row(char* temp_row)
+{
     size_t size = strlen(temp_row);
     char* row = (char*)malloc(size + 1);
     if (!row) {
-        printf("Bellek yetersiz!\n");
-        exit(1);
+        return row;;
     }
     strcpy(row, temp_row);
     return row;
 }
 
-void liste_realloc(char*** p_liste, int cnt)
+void* liste_realloc(char*** p_liste, int cnt)
 {
-    size_t size_representation;
-    char** temp = (char**)realloc(*p_liste, size_representation = (sizeof(char*) * cnt));
+    char** temp = (char**)realloc(*p_liste, (sizeof(char*) * cnt));
     if (temp) {
         *p_liste = temp;
-        printf("Bellek alani %zu adede cikarildi:\n", size_representation / (sizeof(char*)));
+        printf("Bellek alani %d adede cikarildi:\n", cnt);
+        return temp;
     }
     else {
-        printf("Bellek yetersiz!\n");
-        exit(1);
+        return temp;
     }
 }
 
@@ -70,13 +71,27 @@ int main(void)
     int i;
     int is_arrived = MIN_LIST_SIZE;
     for (i = 0; ; ++i) {
-            if (i == is_arrived) {
-                is_arrived *= 2;
-                liste_realloc(&liste, is_arrived);
+        if (i == is_arrived) {
+            is_arrived *= 2;
+            void* realloc_ret = liste_realloc(&liste, is_arrived);
+            if (!realloc_ret) {
+                printf("\nBellek alani buyutulemedi!\nprogram sonlandirildi\n");
+                liste_free_all_so_far(liste, i);
+                return 1;
             }
-            liste[i] = liste_read_and_take_row();
-            if (!liste[i])
-                break;
+        }
+        char temp_row[TEMP_ROW_SIZE];
+        char* fgets_ret = liste_fgets_temp_row(temp_row);
+        if (!fgets_ret) {
+            break;
+        }
+        liste[i] = liste_malloc_and_copy_row(temp_row);
+
+        if (!liste[i]) {
+            printf("\nGirilen satir icin bellek alani saglanamadi!\nprogram sonlandirildi.\n");
+            liste_free_all_so_far(liste, i);
+            return 1;
+        }
     }
     liste_print_rows(liste, i);
 
