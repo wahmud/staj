@@ -74,7 +74,7 @@ int main(void)
         else {
             temp_row_ad[strlen(temp_row_ad) - 1] = '\0';
         }
-        strcpy(kayitlar[i].ad, temp_row_ad);
+        strcpy(k.ad, temp_row_ad);
         //////////
         char temp_row_yas[10];
         printf("Yas girin: ");
@@ -90,7 +90,7 @@ int main(void)
         else {
             temp_row_yas[strlen(temp_row_yas) - 1] = '\0';
         }
-        int sscanf_ret = sscanf(temp_row_yas, "%d", &kayitlar[i].yas);
+        int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
         if (!sscanf_ret) {
             printf("Yas icin sayi girilmedi, program sonlandirildi\n");
             free(kayitlar);
@@ -111,12 +111,20 @@ int main(void)
         else {
             temp_row_tarih[strlen(temp_row_tarih) - 1] = '\0';
         }
-        strcpy(kayitlar[i].tarih, temp_row_tarih);
+        strcpy(k.tarih, temp_row_tarih);
         ///////////
+        kayitlar[i] = k;
     }
 
     for (int j = 0; j < i; ++j) {
         printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", j + 1, kayitlar[j].ad, kayitlar[j].yas, kayitlar[j].tarih);
+    }
+    FILE* f = fopen("kayitlar.txt", "w");
+    if (f) {
+        for (int j = 0; j < i; ++j) {
+            fprintf(f, "%s;%d;%s\n", kayitlar[j].ad, kayitlar[j].yas, kayitlar[j].tarih);
+        }
+        fclose(f);
     }
     free(kayitlar);
 }
