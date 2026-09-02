@@ -8,123 +8,91 @@ struct Kayit {
     char tarih[11];
 };
 
-void kayit_set_value(struct Kayit k)
+void* kayit_realloc(struct Kayit** p, int size)
 {
-    k.yas = 82;
+    void* temp = realloc(*p, size * sizeof(**p));
+    if (temp) {
+        *p = temp;
+        printf("Bellek alani %d adet kayita yukseltildi.\n", size);
+        return temp;
+    }
+    else {
+        return temp;
+    }
 }
 
-void kayit_set_pointer(struct Kayit* p)
+char* kayit_fgets(char* temp, int size)
 {
-    p->yas = 82;
+    char* fgets_ret = fgets(temp, size, stdin);
+    if (!fgets_ret)
+        return fgets_ret;
+    if (temp[strlen(temp) - 1] != '\n')
+        for (int ch; (ch = getchar()) != '\n' && ch != EOF;);
+    else
+        temp[strlen(temp) - 1] = '\0';
+    return temp;    
 }
-
-
 
 
 int main(void)
 {
     struct Kayit k;
-    strcpy(k.ad, "Mahmut");
-    k.yas = 24;
-    strcpy(k.tarih, "5-5-2002");
-    printf("asil yas = %d\n", k.yas);
-    kayit_set_value(k);
-    printf("set_value\n");
-    printf("yas = %d\n", k.yas);
-    kayit_set_pointer(&k);
-    printf("set_pointer\n");
-    printf("yas = %d\n", k.yas);
-    printf("\n\n");
-
-    printf("uc elemanin sizeoflari: %zu + %zu + %zu\n", sizeof(k.ad), sizeof(k.yas), sizeof(k.tarih));
-    printf("yapinin boyutu: %zu\n", sizeof(struct Kayit));
-
-
     struct Kayit* kayitlar = (struct Kayit*)malloc(sizeof(*kayitlar) * 4);
     if (!kayitlar) {
         printf("Bellek yetersiz!\n");
         return 1;
     }
     printf("4 kayitlik bellek alani var\n");
+    
+    
+    int j = 0;
     int is_arrived = 4;
-    int i;
-    for (i = 0;; ++i) {
-        ////////
-        char temp_row_ad[41];
-        printf("Ad girin: ");
-        char* fgets_ret1 = fgets(temp_row_ad, 41, stdin);
-        if (!fgets_ret1)
+    FILE* f_ = fopen("kayitlar.txt", "r");
+    if (!f_) {
+        printf("Dosya acilamadi, program sonlandirildi\n");
+        free(kayitlar);
+        return 1;
+    }
+    for (j = 0;; ++j) {
+        char satir[56];
+        char* fgets_ret = fgets(satir, 56, f_);
+        if (!fgets_ret)
             break;
-        //realloc
-        if (i == is_arrived) {
+        if (j == is_arrived) {
             is_arrived *= 2;
-            void* temp = realloc(kayitlar, sizeof(*kayitlar) * is_arrived);
+            void* temp = kayit_realloc(&kayitlar, is_arrived);
             if (!temp) {
                 printf("Bellek alani eklenemedi, program sonlandirildi\n");
                 free(kayitlar);
                 return 1;
             }
-            printf("Bellek alani %d adet kayita yukseltildi.\n", is_arrived);
-            kayitlar = temp;
         }
-        ////////
-        if (temp_row_ad[strlen(temp_row_ad) - 1] != '\n') {
-            for (int ch; (ch = getchar()) != '\n' && ch != EOF;);
-        }
+        int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", k.ad, &k.yas, k.tarih);
+        if (sscan_ret == 3)
+            kayitlar[j] = k;
         else {
-            temp_row_ad[strlen(temp_row_ad) - 1] = '\0';
+            --j;
         }
-        strcpy(k.ad, temp_row_ad);
-        //////////
-        char temp_row_yas[10];
-        printf("Yas girin: ");
-        char* fgets_ret2 = fgets(temp_row_yas, 10, stdin);
-        if (!fgets_ret2) {
-            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
-            free(kayitlar);
-            return 1;
-        }
-        if (temp_row_yas[strlen(temp_row_yas) - 1] != '\n') {
-            for (int ch; (ch = getchar()) != '\n' && ch != EOF;);
-        }
-        else {
-            temp_row_yas[strlen(temp_row_yas) - 1] = '\0';
-        }
-        int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
-        if (!sscanf_ret) {
-            printf("Yas icin sayi girilmedi, program sonlandirildi\n");
-            free(kayitlar);
-            return 1;
-        }
-        ///////////
-        char temp_row_tarih[11];
-        printf("Tarih girin(gg-aa-yyyy):");
-        char* fgets_ret3 = fgets(temp_row_tarih, 11, stdin);
-        if (!fgets_ret3) {
-            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
-            free(kayitlar);
-            return 1;
-        }
-        if (temp_row_tarih[strlen(temp_row_tarih) - 1] != '\n') {
-            for (int ch; (ch = getchar()) != '\n' && ch != EOF;);
-        }
-        else {
-            temp_row_tarih[strlen(temp_row_tarih) - 1] = '\0';
-        }
-        strcpy(k.tarih, temp_row_tarih);
-        ///////////
-        kayitlar[i] = k;
+
     }
+    fclose(f_);
+
+
+    int i;
+    FILE* f = fopen("kayitlar.txt", "w");
+    if (!f) {
+        printf("Dosya acilamadi, program sonlandirildi\n");
+        free(kayitlar);
+        return 1;
+    }
+    for (i = 0; j && i < j; ++i) {
+        fprintf(f, "%s;%d;%s\n", kayitlar[i].ad, kayitlar[i].yas, kayitlar[i].tarih);
+    }
+    fclose(f);
 
     for (int j = 0; j < i; ++j) {
         printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", j + 1, kayitlar[j].ad, kayitlar[j].yas, kayitlar[j].tarih);
     }
-    FILE* f = fopen("kayitlar.txt", "w");
-    if (f) {
-        for (int j = 0; j < i; ++j) {
-            fprintf(f, "%s;%d;%s\n", kayitlar[j].ad, kayitlar[j].yas, kayitlar[j].tarih);
-        }
-        fclose(f);
-    }
+
     free(kayitlar);
 }
