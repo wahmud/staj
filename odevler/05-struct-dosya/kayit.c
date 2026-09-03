@@ -44,7 +44,7 @@ int main(void)
     }
     printf("4 kayitlik bellek alani var\n");
     
-    
+    //DOSYADAN OKUMA//
     int j = 0;
     int is_arrived = 4;
     FILE* f_ = fopen("kayitlar.txt", "r");
@@ -54,14 +54,14 @@ int main(void)
         return 1;
     }
     for (j = 0;; ++j) {
-        char satir[56];
-        char* fgets_ret = fgets(satir, 56, f_);
+        char satir[52];
+        char* fgets_ret = fgets(satir, 52, f_);
         if (!fgets_ret)
             break;
         if (j == is_arrived) {
             is_arrived *= 2;
-            void* temp = kayit_realloc(&kayitlar, is_arrived);
-            if (!temp) {
+            void* temp1 = kayit_realloc(&kayitlar, is_arrived);
+            if (!temp1) {
                 printf("Bellek alani eklenemedi, program sonlandirildi\n");
                 free(kayitlar);
                 return 1;
@@ -69,15 +69,69 @@ int main(void)
         }
         int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", k.ad, &k.yas, k.tarih);
         if (sscan_ret == 3)
+            //belleğe ekleme
             kayitlar[j] = k;
         else {
             --j;
         }
-
     }
     fclose(f_);
+    //BİTTİ//
 
 
+
+
+    //ELLE GİRİŞ//
+    for (;; ++j) {
+        char temp_row_ad[41];
+        printf("Ad girin: ");
+        char* fgets_ret1 = kayit_fgets(temp_row_ad, 41);
+        if (!fgets_ret1)
+            break;
+        if (j == is_arrived) {
+            is_arrived *= 2;
+            void* temp2 = kayit_realloc(&kayitlar, is_arrived);
+            if (!temp2) {
+                printf("Bellek alani eklenemedi, program sonlandirildi\n");
+                free(kayitlar);
+                return 1;
+            }
+        }
+        strcpy(k.ad, temp_row_ad);
+//////////////////////////////////
+        char temp_row_yas[3];
+        printf("Yas girin: ");
+        char* fgets_ret2 = kayit_fgets(temp_row_yas, 3);
+        if (!fgets_ret2) {
+            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
+            free(kayitlar);
+            return 1;
+        }
+        int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
+        if (!sscanf_ret) {
+            printf("Yas icin sayi girilmedi, program sonlandirildi\n");
+            free(kayitlar);
+            return 1;
+        }
+////////////////////////////
+        char temp_row_tarih[11];
+        printf("Tarih girin(gg-aa-yyyy):");
+        char* fgets_ret3 = kayit_fgets(temp_row_tarih, 11);
+        if (!fgets_ret3) {
+            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
+            free(kayitlar);
+            return 1;
+        }
+        strcpy(k.tarih, temp_row_tarih);
+////////////////////////////////////////
+
+        //belleğe ekleme
+        kayitlar[j] = k;
+    }
+    //BİTTİ//
+
+
+    //DOSYAYA YAZMA//
     int i;
     FILE* f = fopen("kayitlar.txt", "w");
     if (!f) {
@@ -89,9 +143,10 @@ int main(void)
         fprintf(f, "%s;%d;%s\n", kayitlar[i].ad, kayitlar[i].yas, kayitlar[i].tarih);
     }
     fclose(f);
+    //BİTTİ//
 
-    for (int j = 0; j < i; ++j) {
-        printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", j + 1, kayitlar[j].ad, kayitlar[j].yas, kayitlar[j].tarih);
+    for (int k = 0; k < j; ++k) {
+        printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", k + 1, kayitlar[k].ad, kayitlar[k].yas, kayitlar[k].tarih);
     }
 
     free(kayitlar);
