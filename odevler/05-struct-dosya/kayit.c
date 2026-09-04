@@ -48,34 +48,31 @@ int main(void)
     int j = 0;
     int is_arrived = 4;
     FILE* f_ = fopen("kayitlar.txt", "r");
-    if (!f_) {
-        printf("Dosya acilamadi, program sonlandirildi\n");
-        free(kayitlar);
-        return 1;
-    }
-    for (j = 0;; ++j) {
-        char satir[52];
-        char* fgets_ret = fgets(satir, 52, f_);
-        if (!fgets_ret)
-            break;
-        if (j == is_arrived) {
-            is_arrived *= 2;
-            void* temp1 = kayit_realloc(&kayitlar, is_arrived);
-            if (!temp1) {
-                printf("Bellek alani eklenemedi, program sonlandirildi\n");
-                free(kayitlar);
-                return 1;
+    if (f_) {
+        for (j = 0;; ++j) {
+            char satir[52];
+            char* fgets_ret = fgets(satir, 52, f_);
+            if (!fgets_ret)
+                break;
+            if (j == is_arrived) {
+                is_arrived *= 2;
+                void* temp1 = kayit_realloc(&kayitlar, is_arrived);
+                if (!temp1) {
+                    printf("Bellek alani eklenemedi, program sonlandirildi\n");
+                    free(kayitlar);
+                    return 1;
+                }
+            }
+            int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", k.ad, &k.yas, k.tarih);
+            if (sscan_ret == 3)
+                //belleğe ekleme
+                kayitlar[j] = k;
+            else {
+                --j;
             }
         }
-        int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", k.ad, &k.yas, k.tarih);
-        if (sscan_ret == 3)
-            //belleğe ekleme
-            kayitlar[j] = k;
-        else {
-            --j;
-        }
+        fclose(f_);
     }
-    fclose(f_);
     //BİTTİ//
 
 
