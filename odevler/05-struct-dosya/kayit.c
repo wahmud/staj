@@ -68,7 +68,8 @@ int main(void)
                 //belleğe ekleme
                 kayitlar[j] = k;
             else {
-                --j;
+                strcpy(k.ad, "");
+                kayitlar[j] = k;
             }
         }
         fclose(f_);
@@ -137,13 +138,17 @@ int main(void)
         return 1;
     }
     for (i = 0; j && i < j; ++i) {
-        fprintf(f, "%s;%d;%s\n", kayitlar[i].ad, kayitlar[i].yas, kayitlar[i].tarih);
+        if (*kayitlar[i].ad)
+            fprintf(f, "%s;%d;%s\n", kayitlar[i].ad, kayitlar[i].yas, kayitlar[i].tarih);        
     }
     fclose(f);
     //BİTTİ//
 
     for (int k = 0; k < j; ++k) {
-        printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", k + 1, kayitlar[k].ad, kayitlar[k].yas, kayitlar[k].tarih);
+        if (*kayitlar[k].ad)
+            printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", k + 1, kayitlar[k].ad, kayitlar[k].yas, kayitlar[k].tarih);
+        else
+            printf("\n%d. Kayit:\nGecersiz giris\n", k + 1);
     }
 
     free(kayitlar);
