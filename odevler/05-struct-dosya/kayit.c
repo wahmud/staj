@@ -50,8 +50,8 @@ int main(void)
     FILE* f_ = fopen("kayitlar.txt", "r");
     if (f_) {
         for (j = 0;; ++j) {
-            char satir[52];
-            char* fgets_ret = fgets(satir, 52, f_);
+            char satir[60];
+            char* fgets_ret = fgets(satir, 60, f_);
             if (!fgets_ret)
                 break;
             if (j == is_arrived) {
@@ -99,14 +99,14 @@ int main(void)
 //////////////////////////////////
         char temp_row_yas[3];
         printf("Yas girin: ");
-        char* fgets_ret2 = kayit_fgets(temp_row_yas, 3);
+        char* fgets_ret2 = kayit_fgets(temp_row_yas, 11);
         if (!fgets_ret2) {
             printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
             free(kayitlar);
             return 1;
         }
         int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
-        if (!sscanf_ret) {
+        if (sscanf_ret != 1) {
             printf("Yas icin sayi girilmedi, program sonlandirildi\n");
             free(kayitlar);
             return 1;
