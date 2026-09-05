@@ -97,7 +97,7 @@ int main(void)
         }
         strcpy(k.ad, temp_row_ad);
 //////////////////////////////////
-        char temp_row_yas[3];
+        char temp_row_yas[11];
         printf("Yas girin: ");
         char* fgets_ret2 = kayit_fgets(temp_row_yas, 11);
         if (!fgets_ret2) {
