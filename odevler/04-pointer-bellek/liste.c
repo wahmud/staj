@@ -30,7 +30,7 @@ char* liste_malloc_and_copy_row(char* temp_row)
 
 void* liste_realloc(char*** p_liste, int cnt)
 {
-    char** temp = (char**)realloc(*p_liste, (sizeof(char*) * cnt));
+    char** temp = (char**)realloc(*p_liste, (sizeof(**p_liste) * cnt));
     if (temp) {
         *p_liste = temp;
         printf("Bellek alani %d adede cikarildi:\n", cnt);
