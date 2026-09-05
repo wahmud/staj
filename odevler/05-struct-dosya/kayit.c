@@ -42,7 +42,6 @@ int main(void)
         printf("Bellek yetersiz!\n");
         return 1;
     }
-    printf("4 kayitlik bellek alani var\n");
     
     //DOSYADAN OKUMA//
     int j = 0;
@@ -154,11 +153,11 @@ int main(void)
     fclose(f);
     //BİTTİ//
 
-    for (int k = 0; k < j; ++k) {
-        if (*kayitlar[k].ad)
-            printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", k + 1, kayitlar[k].ad, kayitlar[k].yas, kayitlar[k].tarih);
+    for (int m = 0; m < j; ++m) {
+        if (*kayitlar[m].ad)
+            printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", m + 1, kayitlar[m].ad, kayitlar[m].yas, kayitlar[m].tarih);
         else
-            printf("\n%d. Kayit:\nGecersiz giris\n", k + 1);
+            printf("\n%d. Kayit:\nGecersiz giris\n", m + 1);
     }
 
     free(kayitlar);
