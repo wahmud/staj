@@ -48,7 +48,7 @@ int main(void)
     int is_arrived = 4;
     FILE* f_ = fopen("kayitlar.txt", "r");
     if (f_) {
-        for (j = 0;; ++j) {
+        for (j = 0;;) {
             char satir[60];
             char* fgets_ret = fgets(satir, 60, f_);
             if (!fgets_ret)
@@ -63,12 +63,13 @@ int main(void)
                 }
             }
             int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", k.ad, &k.yas, k.tarih);
-            if (sscan_ret == 3)
+            if (sscan_ret == 3) {
                 //belleğe ekleme
                 kayitlar[j] = k;
+                ++j;
+            }
             else {
-                strcpy(k.ad, "");
-                kayitlar[j] = k;
+                printf("Bozuk satir atlandi: %s", satir);
             }
         }
         fclose(f_);
@@ -146,18 +147,14 @@ int main(void)
         free(kayitlar);
         return 1;
     }
-    for (i = 0; j && i < j; ++i) {
-        if (*kayitlar[i].ad)
+    for (i = 0; i < j; ++i) {
             fprintf(f, "%s;%d;%s\n", kayitlar[i].ad, kayitlar[i].yas, kayitlar[i].tarih);        
     }
     fclose(f);
     //BİTTİ//
 
     for (int m = 0; m < j; ++m) {
-        if (*kayitlar[m].ad)
-            printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", m + 1, kayitlar[m].ad, kayitlar[m].yas, kayitlar[m].tarih);
-        else
-            printf("\n%d. Kayit:\nGecersiz giris\n", m + 1);
+        printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", m + 1, kayitlar[m].ad, kayitlar[m].yas, kayitlar[m].tarih);
     }
 
     free(kayitlar);
