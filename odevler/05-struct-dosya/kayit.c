@@ -83,17 +83,22 @@ int main(void)
     for (;; ++j) {
         char* fgets_ret1;
         char temp_row_ad[41];
+        //noktalı virgül denetimi
         for (;;) {
             printf("Ad girin: ");
             fgets_ret1 = kayit_fgets(temp_row_ad, 41);
             if (!fgets_ret1)
                 break;
-            char* strchr_ret = strchr(temp_row_ad, ';');
-            if (!strchr_ret)
-                break;
-            else
-                printf("Hatali giris: \";\" karakteri isimde kullanilamaz\n");
+            if (*temp_row_ad != '\0') {
+                char* strchr_ret = strchr(temp_row_ad, ';');
+                if (!strchr_ret)
+                    break;
+                else
+                    printf("Hatali giris: \";\" karakteri isimde kullanilamaz\n");
+            }
         }
+        //
+
         if (!fgets_ret1)
             break;
         if (j == is_arrived) {
