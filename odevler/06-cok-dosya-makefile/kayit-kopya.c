@@ -83,7 +83,7 @@ int main(void)
     for (;; ++j) {
         char* fgets_ret1;
         char temp_row_ad[41];
-        //noktalı virgül denetimi
+        //noktalı virgül ve giriş yok denetimi
         for (;;) {
             printf("Ad girin: ");
             fgets_ret1 = kayit_fgets(temp_row_ad, 41);
@@ -95,6 +95,9 @@ int main(void)
                     break;
                 else
                     printf("Hatali giris: \";\" karakteri isimde kullanilamaz\n");
+            }
+            else {
+                printf("Hatali giris: ad girilmedi!\n");
             }
         }
         //
