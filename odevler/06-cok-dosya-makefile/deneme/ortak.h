@@ -1,0 +1,1 @@
+struct Kayit { char ad[41]; int yas; char tarih[11]; };
