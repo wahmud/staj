@@ -1,1 +1,1 @@
-struct Kayit { char ad[41]; int yas; char tarih[11]; };
+int kayit_bos(void) { return 0; }
