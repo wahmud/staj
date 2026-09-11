@@ -75,3 +75,12 @@
 
 32: " git remote set-url origin https://github.com/wahmud/staj.git "                         -----------      Bu da tekrar kullanıcı adı ve 
                                                                                                               token istemesini sağlıyor.
+
+
+
+
+
+
+
+
+-- " gcc -std=gnu17/-std=gnu23 ile C17 ve C23 standartlarıyla derleme yapılabiliyor.
