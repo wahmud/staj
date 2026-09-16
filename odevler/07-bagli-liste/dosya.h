@@ -5,6 +5,6 @@
 #include "liste.h"
 
 int kayitlari_oku(struct Dugum**);
-int kayitlari_yaz(struct Dugum* , int adet);
+int kayitlari_yaz(struct Dugum*);
 
 #endif

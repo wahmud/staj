@@ -36,13 +36,12 @@ int kayitlari_oku(struct Dugum** dugum_2)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-int kayitlari_yaz(struct Dugum* dugum_1, int adet)
+int kayitlari_yaz(struct Dugum* dugum_1)
 {
-    int i;
     FILE* f = fopen("kayitlar.txt", "w");
     if (!f)
         return 1;
-    for (i = 0; i < adet; ++i) {
+    for (; dugum_1 != NULL;) {
         fprintf(f, "%s;%d;%s\n", dugum_1->kayit.ad, dugum_1->kayit.yas, dugum_1->kayit.tarih);
         dugum_1 = dugum_1->sonraki;
     }

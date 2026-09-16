@@ -82,7 +82,7 @@ int main(void)
         ++j;
     }
     //BİTTİ
-    int yazma_ret = kayitlari_yaz(*bas_pointer, j);
+    int yazma_ret = kayitlari_yaz(*bas_pointer);
     if (yazma_ret == 1) {
         printf("Dosya acilamadi, program sonlandirildi\n");
         liste_bosalt(bas_pointer);
