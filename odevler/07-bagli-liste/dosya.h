@@ -2,7 +2,9 @@
 #define DOSYA_H
 
 #include "kayit.h"
-int kayitlari_oku(struct Kayit** p_kayitlar, int* p_kapasite);
-int kayitlari_yaz(struct Kayit* kayitlar, int adet);
+#include "liste.h"
+
+int kayitlari_oku(struct Dugum**);
+int kayitlari_yaz(struct Dugum* , int adet);
 
 #endif

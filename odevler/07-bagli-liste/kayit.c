@@ -1,19 +1,7 @@
-#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "kayit.h"
-void* kayit_realloc(struct Kayit** p, int size)
-{
-    void* temp = realloc(*p, size * sizeof(**p));
-    if (temp) {
-        *p = temp;
-        printf("Bellek alani %d adet kayita yukseltildi.\n", size);
-        return temp;
-    }
-    else
-        return temp;
-}
-//////////////////////////////////////////////////////////////////////////////////////
+
 char* kayit_fgets(char* temp, int size)
 {
     char* fgets_ret = fgets(temp, size, stdin);
