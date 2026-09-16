@@ -20,8 +20,9 @@ int main(void)
     //ELLE GİRİŞ//
     for (;;) {
         struct Kayit k;
-        char* fgets_ret1;
+//////////////////////////////////////////////AD
         char temp_row_ad[41];
+        char* fgets_ret1;
         //noktalı virgül ve giriş yok denetimi
         for (;;) {
             printf("Ad girin: ");
@@ -38,39 +39,39 @@ int main(void)
             else
                 printf("Hatali giris, ad girilmedi\n");
         }
-        //
-
-
+        //bitti
         if (!fgets_ret1)
             break;
 
         strcpy(k.ad, temp_row_ad);
-//////////////////////////////////
+//////////////////////////////////////////YAŞ
         char temp_row_yas[11];
-        printf("Yas girin: ");
-        char* fgets_ret2 = kayit_fgets(temp_row_yas, 11);
-        if (!fgets_ret2) {
-            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
-            liste_bosalt(bas_pointer);
-            return 1;
+        char* fgets_ret2;
+        for (;;) {
+            printf("Yas girin: ");
+            fgets_ret2 = kayit_fgets(temp_row_yas, 11);
+            if (!fgets_ret2) {
+                printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
+                break;
+            }
+            int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
+            if (sscanf_ret == 1)
+                break;
+            else
+                printf("Hatali giris, yas icin sayi girilmedi\n");
         }
-        int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
-        if (sscanf_ret != 1) {
-            printf("Yas icin sayi girilmedi, program sonlandirildi\n");
-            liste_bosalt(bas_pointer);
-            return 1;
-        }
-////////////////////////////
+        if (!fgets_ret2)
+            break;
+///////////////////////////////////////TARİH
         char temp_row_tarih[11];
         printf("Tarih girin(gg-aa-yyyy):");
         char* fgets_ret3 = kayit_fgets(temp_row_tarih, 11);
         if (!fgets_ret3) {
             printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
-            liste_bosalt(bas_pointer);
-            return 1;
+            break;
         }
         strcpy(k.tarih, temp_row_tarih);
-////////////////////////////////////////
+////////////////////////////////////////BİTTİ
 
         //belleğe ekleme
         struct Dugum* dugum_ekle_ret = dugum_ekle(bas_pointer, k);
@@ -80,6 +81,7 @@ int main(void)
             return 1;
         }
         ++j;
+        //bitti
     }
     //BİTTİ
     int yazma_ret = kayitlari_yaz(*bas_pointer);
