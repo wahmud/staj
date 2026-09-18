@@ -1,6 +1,7 @@
 #include "liste.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 struct Dugum* dugum_ekle(struct Dugum** p_bas, struct Kayit k)
 {
@@ -19,6 +20,7 @@ struct Dugum* dugum_ekle(struct Dugum** p_bas, struct Kayit k)
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
 void liste_bosalt(struct Dugum** p_bas)
 {
     for (;*p_bas != NULL;){
@@ -37,4 +39,18 @@ void liste_bas(struct Dugum* bas)
         printf("\n%d. Kayit:\nAd: %s\nYas: %d\nTarih: %s\n", i + 1, bas->kayit.ad, bas->kayit.yas, bas->kayit.tarih);
         bas = bas->sonraki;
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+struct Dugum* liste_ara(struct Dugum* bas, const char* ad)
+{
+    for (; bas != NULL;) {
+        if (!strcmp(ad, bas->kayit.ad)) {
+            return bas;
+        }
+        else
+        bas = bas->sonraki;
+    }
+    return NULL;
 }

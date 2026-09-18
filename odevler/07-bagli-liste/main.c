@@ -18,6 +18,7 @@ int main(void)
     }
 
     //ELLE GİRİŞ//
+    char bitis[] = "bitti";
     for (;;) {
         struct Kayit k;
 //////////////////////////////////////////////AD
@@ -40,7 +41,7 @@ int main(void)
                 printf("Hatali giris, ad girilmedi\n");
         }
         //bitti
-        if (!fgets_ret1)
+        if (!fgets_ret1 || !strcmp(bitis, temp_row_ad))
             break;
 
         strcpy(k.ad, temp_row_ad);
@@ -84,6 +85,32 @@ int main(void)
         //bitti
     }
     //BİTTİ
+
+
+    //arama
+    char temp_ad_arama[41];
+    printf("Aradiginiz kaydi girin:\n");
+    char* fgets_ret_arama = kayit_fgets(temp_ad_arama, 41);
+    if (!fgets_ret_arama) {
+        printf("Dosya sonu, arama yapilamiyor\n");
+    }
+    else {
+
+        struct Dugum* aranan_dugum = liste_ara(*bas_pointer, temp_ad_arama);
+        if (!aranan_dugum) {
+            printf("Aranan kayit bulunamadi\n");
+        }
+        else {
+            printf("Aranan kayit bulundu:\n");
+            printf("Ad: %s\nYas: %d\nTarih: %s\n", aranan_dugum->kayit.ad, aranan_dugum->kayit.yas, aranan_dugum->kayit.tarih);
+        }
+
+    }
+    //bitti
+
+
+        
+    //dosyaya yazma
     int yazma_ret = kayitlari_yaz(*bas_pointer);
     if (yazma_ret == 1) {
         printf("Dosya acilamadi, program sonlandirildi\n");
