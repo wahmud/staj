@@ -108,6 +108,20 @@ int main(void)
     }
     //bitti
 
+    //silme
+    printf("Silmek istediginiz kaydi girin:\n");
+    char temp_silme[41];
+    char* fgets_ret_silme = kayit_fgets(temp_silme,41);
+    if (!fgets_ret_silme)
+        printf("Dosya sonu, silme islemi yapilamiyor.");
+    else {
+        int silme_ret = liste_sil(bas_pointer, temp_silme);
+        if (silme_ret)
+            printf("Bu kayit bulunamadi\n");
+        else
+            printf("Kayit silindi\n");
+    }
+    //bitti
 
         
     //dosyaya yazma
