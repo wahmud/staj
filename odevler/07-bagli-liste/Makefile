@@ -15,3 +15,6 @@ liste.o: liste.c liste.h
 
 clean:
 	rm -f *.o kayit
+
+fsanitize:
+	gcc -Wall -Wextra -g -fsanitize=address -o kayit main.c liste.c dosya.c kayit.c
