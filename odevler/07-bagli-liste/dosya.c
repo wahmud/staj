@@ -7,7 +7,6 @@ int kayitlari_oku(struct Dugum** dugum_2)
     int j = 0;
     FILE* f_ = fopen("kayitlar.txt", "r");
     struct Dugum dugum;
-    struct Dugum* dugum_ekle_ret;
     if (f_) {
         for (j = 0;;) {
             char satir[60];
@@ -16,7 +15,7 @@ int kayitlari_oku(struct Dugum** dugum_2)
                 break;
             int sscan_ret = sscanf(satir, "%40[^;];%d;%10[^\n]", dugum.kayit.ad, &dugum.kayit.yas, dugum.kayit.tarih);
             if (sscan_ret == 3) {
-                dugum_ekle_ret = dugum_ekle(dugum_2, dugum.kayit);
+                struct Dugum* dugum_ekle_ret = dugum_ekle(dugum_2, dugum.kayit);
                 if (!dugum_ekle_ret) {
                     liste_bosalt(dugum_2);
                     return -1;
