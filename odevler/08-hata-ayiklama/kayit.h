@@ -7,7 +7,6 @@ struct Kayit {
     char tarih[11];
 };
 
-void* kayit_realloc(struct Kayit** p, int size);
 char* kayit_fgets(char* temp, int size);
 
 #endif 
