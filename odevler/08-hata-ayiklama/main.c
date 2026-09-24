@@ -41,6 +41,13 @@ int main(void)
                 printf("Hatali giris, ad girilmedi\n");
         }
         //bitti
+
+        //\r kontrolü
+        char carriage_return_kontrolu[] = "bitti\r";
+        if (!strcmp(carriage_return_kontrolu, temp_row_ad))
+            temp_row_ad[5] = '\0';
+        //bitti
+
         if (!fgets_ret1 || !strcmp(bitis, temp_row_ad))
             break;
 
