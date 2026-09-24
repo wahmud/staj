@@ -77,6 +77,9 @@
                                                                                                               token istemesini sağlıyor.
 
 
+00: " git check-ignore -v odevler/06-cok-dosya-makefile/dosya "                              -----------      -v verince her satırın başında
+                                                                                                              kuralın hangi dosyada ve kaçıncı satırda durduğu da yazıyor
+
 
 
 
