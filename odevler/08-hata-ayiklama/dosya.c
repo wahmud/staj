@@ -4,11 +4,10 @@
 #include "liste.h"
 int kayitlari_oku(struct Dugum** dugum_2)
 {
-    int j = 0;
     FILE* f_ = fopen("kayitlar.txt", "r");
     struct Dugum dugum;
     if (f_) {
-        for (j = 0;;) {
+        for (;;) {
             char satir[60];
             char* fgets_ret = fgets(satir, 60, f_);
             if (!fgets_ret)
@@ -20,14 +19,13 @@ int kayitlari_oku(struct Dugum** dugum_2)
                     liste_bosalt(dugum_2);
                     return -1;
                 }
-                ++j;
             }
             else {
                 printf("Bozuk satir atlandi: %s", satir);
             }
         }
         fclose(f_);
-        return j;
+        return 0;
     }
     else
         return 0;

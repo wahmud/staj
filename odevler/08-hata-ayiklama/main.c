@@ -81,7 +81,6 @@ int main(void)
             liste_bosalt(bas_pointer);
             return 1;
         }
-        ++j;
         //bitti
     }
     //BİTTİ
