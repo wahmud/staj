@@ -43,9 +43,9 @@ int main(void)
         //bitti
 
         //\r kontrolü
-        char carriage_return_kontrolu[] = "bitti\r";
-        if (!strcmp(carriage_return_kontrolu, temp_row_ad))
-            temp_row_ad[5] = '\0';
+            char* carriage_return = strchr(temp_row_ad, '\r');
+            if(carriage_return)
+                *carriage_return = '\0';
         //bitti
 
         if (!fgets_ret1 || !strcmp(bitis, temp_row_ad))
