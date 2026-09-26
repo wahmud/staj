@@ -30,7 +30,6 @@ void liste_bosalt(struct Dugum** p_bas)
         *p_bas = (*p_bas)->sonraki;
         free(simdiki);
     }
-    *p_bas = NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
