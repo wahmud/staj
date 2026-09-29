@@ -1,6 +1,7 @@
 #include "dosya.h"
 #include "kayit.h"
 #include "liste.h"
+#include "tarih.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -71,8 +72,8 @@ int main(void)
                 printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
                 break;
             }
-            char c;
-            int sscanf_ret = sscanf(temp_row_yas, "%d %c", &k.yas, &c);
+            char c1;
+            int sscanf_ret = sscanf(temp_row_yas, "%d %c", &k.yas, &c1);
             if (sscanf_ret == 1) {
                 if (k.yas <= 150 && k.yas >= 0)
                     break;
@@ -88,20 +89,45 @@ int main(void)
         if (!fgets_ret_yas)
             break;
 ///////////////////////////////////////TARİH
-        char temp_row_tarih[11];
-        printf("Tarih girin(gg-aa-yyyy):");
-        fgets_ret_tarih = kayit_fgets(temp_row_tarih, 11);
-        if (!fgets_ret_tarih) {
-            printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
-            break;
+        for (;;) {
+            printf("Tarih girin(gg-aa-yyyy):");
+            char temp_row_tarih[11];
+            fgets_ret_tarih = kayit_fgets(temp_row_tarih, 11);
+            if (!fgets_ret_tarih) {
+                printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
+                break;
+            }
+            
+            //\r kontrolü
+            char* carriage_return2 = strchr(temp_row_tarih, '\r');
+            if(carriage_return2)
+            *carriage_return2 = '\0';
+            //bitti
+
+            //tarih geçerli mi kontrolü
+            int gun, ay, yil;
+            char c2;
+            int sscanf_ret_tarih = sscanf(temp_row_tarih, "%d-%d-%d %c", &gun, &ay, &yil, &c2);
+            if (sscanf_ret_tarih == 3) {
+                int is_real = is_real_date(gun, ay, yil);
+                if (yil < 1800)
+                    printf("Yil degeri 1800'den buyuk olmali\n");
+                if (yil > 2050)
+                    printf("Yil degeri 2050'den kucuk olmali\n");
+                else if (!is_real) {
+                    printf("Girilen tarih gercek degil\n");
+                }
+                else {
+            //bitti
+                    strcpy(k.tarih, temp_row_tarih);
+                    break;
+                }
+            }
+            else
+                printf("Hatali tarih girisi\n");
         }
-        
-        //\r kontrolü
-        char* carriage_return2 = strchr(temp_row_tarih, '\r');
-        if(carriage_return2)
-        *carriage_return2 = '\0';
-        //bitti
-        strcpy(k.tarih, temp_row_tarih);
+        if (!fgets_ret_tarih)
+            break;
 ////////////////////////////////////////BİTTİ
 
         //belleğe ekleme
