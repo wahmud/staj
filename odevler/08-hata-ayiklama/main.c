@@ -71,9 +71,16 @@ int main(void)
                 printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
                 break;
             }
-            int sscanf_ret = sscanf(temp_row_yas, "%d", &k.yas);
-            if (sscanf_ret == 1)
-                break;
+            char c;
+            int sscanf_ret = sscanf(temp_row_yas, "%d %c", &k.yas, &c);
+            if (sscanf_ret == 1) {
+                if (k.yas <= 150 && k.yas >= 0)
+                    break;
+                else
+                    printf("Kabul edilen yas araligi 0-150\n");
+            }
+            else if (sscanf_ret == 2)
+                printf("Hatali giris, yas icin rakam disinda karakter kullanilamaz\n");
             else
                 printf("Hatali giris, yas icin sayi girilmedi\n");
         }
