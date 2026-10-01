@@ -17,6 +17,7 @@ int kayitlari_oku(struct Dugum** dugum_2)
                 struct Dugum* dugum_ekle_ret = dugum_ekle(dugum_2, dugum.kayit);
                 if (!dugum_ekle_ret) {
                     liste_bosalt(dugum_2);
+                    fclose(f_);
                     return -1;
                 }
             }
