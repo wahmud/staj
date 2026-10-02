@@ -47,15 +47,9 @@ int main(void)
                 printf("Hatali giris, ad girilmedi\n");
         }
         //bitti
-
-        //\r kontrolü
-            char* carriage_return1 = strchr(temp_row_ad, '\r');
-            if(carriage_return1)
-                *carriage_return1 = '\0';
-        //bitti
-
         if (!fgets_ret_ad)
             break;
+
         if (!strcmp(bitis, temp_row_ad)) {
             fgets_ret_yas = (char*)1;
             fgets_ret_tarih = (char*)1;
@@ -97,12 +91,6 @@ int main(void)
                 printf("Dosya sonu, giris tamamlanmadi, program sonlandirildi\n");
                 break;
             }
-            
-            //\r kontrolü
-            char* carriage_return2 = strchr(temp_row_tarih, '\r');
-            if(carriage_return2)
-            *carriage_return2 = '\0';
-            //bitti
 
             //tarih geçerli mi kontrolü
             int gun, ay, yil;
@@ -112,7 +100,7 @@ int main(void)
                 int is_real = is_real_date(gun, ay, yil);
                 if (yil < 1800)
                     printf("Yil degeri 1800'den buyuk olmali\n");
-                if (yil > 2050)
+                else if (yil > 2050)
                     printf("Yil degeri 2050'den kucuk olmali\n");
                 else if (!is_real) {
                     printf("Girilen tarih gercek degil\n");
@@ -151,13 +139,6 @@ int main(void)
             printf("Dosya sonu, arama yapilamiyor\n");
         }
         else {
-
-            //\r kontrolü
-            char* carriage_return3 = strchr(temp_ad_arama, '\r');
-            if(carriage_return3)
-                *carriage_return3 = '\0';
-            //bitti
-
             struct Dugum* aranan_dugum = liste_ara(*bas_pointer, temp_ad_arama);
             if (!aranan_dugum) {
                 printf("Aranan kayit bulunamadi\n");
@@ -179,11 +160,6 @@ int main(void)
         if (!fgets_ret_silme)
             printf("Dosya sonu, silme islemi yapilamiyor.");
         else {
-            //\r kontrolü
-            char* carriage_return4 = strchr(temp_silme, '\r');
-            if(carriage_return4)
-                *carriage_return4 = '\0';
-            //bitti
             int silme_ret = liste_sil(bas_pointer, temp_silme);
             if (silme_ret)
                 printf("Bu kayit bulunamadi\n");
