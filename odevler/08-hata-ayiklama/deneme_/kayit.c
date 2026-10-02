@@ -7,9 +7,12 @@ char* kayit_fgets(char* temp, int size)
     char* fgets_ret = fgets(temp, size, stdin);
     if (!fgets_ret)
         return fgets_ret;
-    if (temp[strlen(temp) - 1] != '\n')
+    if (temp[strlen(temp) - 1] != '\n') {
         for (int ch; (ch = getchar()) != '\n' && ch != EOF;);
+        if (temp[strlen(temp) - 1] == '\r')
+            temp[strlen(temp) - 1] = '\0';
+    }
     else
-        temp[strlen(temp) - 1] = '\0';
-    return temp;    
+        temp[strlen(temp) - 2] = '\0';
+    return temp;
 }
