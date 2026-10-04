@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "kayit.h"
+#include <stdlib.h>
 
 char* kayit_fgets(char* temp, int size)
 {
@@ -12,7 +13,9 @@ char* kayit_fgets(char* temp, int size)
         if (temp[strlen(temp) - 1] == '\r')
             temp[strlen(temp) - 1] = '\0';
     }
-    else
+    else if (temp[strlen(temp) - 2] == '\r')
         temp[strlen(temp) - 2] = '\0';
+    else
+        temp[strlen(temp) - 1] = '\0';
     return temp;
 }
