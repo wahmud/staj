@@ -61,26 +61,16 @@ struct Dugum* liste_ara(struct Dugum* bas, const char* ad)
 
 int liste_sil(struct Dugum** p_bas, const char* ad)
 {
-    if (*p_bas == NULL) {
-        return 1;
-    }
-    if (!strcmp((*p_bas)->kayit.ad, ad)) {
-        //
-        return 0;
-    }
-    
-    struct Dugum* onceki = *p_bas;
-    for (; *p_bas != NULL;) {
+    for (;*p_bas != NULL;) {
         if (!strcmp((*p_bas)->kayit.ad, ad)) {
-            onceki->sonraki = (*p_bas)->sonraki;
-            free(*p_bas);
+            struct Dugum* freelik = *p_bas;
+            *p_bas = (*p_bas)->sonraki;
+            free(freelik);
             return 0;
         }
         else {
-            onceki = *p_bas;
             p_bas = &(*p_bas)->sonraki;
         }
     }
     return 1;
-
 }
