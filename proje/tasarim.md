@@ -12,9 +12,34 @@ KOMUTLAR:
 
 
 
-HATALI KOMUT KULLANIMLARI:
-(eksik argüman, bilinmeyen komut, sığmayan metin)//bunu sil
+HATALI KOMUTLAR:
+-"./harcama" ile başlamayan tüm komut girişimleri
 
+-Harcama ekleme komutu için "./harcama"dan sonra gelen "ekle"den sonra 3 adet, ilki gg-aa-yyyy formatında tarih, ikincisi kategori, üçüncüsü tutar olmak üzere boşluk karakterleri ile ayrılmış 3 adet giriş yapmamak.
+
+-Harcamaları listeleme komutu için "./harcama"dan sonra gelen "liste"den sonra sadece senenin ayını belirten aa-yyyy formatında bir adet tarihsel giriş yapmamak.
+
+-Kategorileri özetleme komutu için "./harcama"dan sonra gelen "ozet"ten sonra sadece senenin ayını belirten aa-yyyy formatında bir adet tarihsel giriş yapmamak.
+
+-Tüm tarih girişlerinde artık-sene olmayan senelerde 29 Şubat, veya 31 Nisan gibi gerçekte var olmayan herhangi bir tarihsel giriş yapmak
+
+-Tüm tarih girişlerinde rakam ve "-" tire karakteri haricinde herhangi bir karakter girişi yapmak
+
+-Tüm tarih girişlerinde gelecek zaman veya 01-01-1800 tarihinden daha geri tarihleri girmek
+
+-Tüm tarih girişlerinde 10 adetten fazla karakter girişi yapmak
+
+-Harcama ekleme komutunda kategori için "market" harici bir kategori girişi yapmak
+
+-Harcama ekleme komutunda tutar olarak negatif değer girmek
+
+-Harcama ekleme komutunda tutar olarak sıfır değerini girmek.
+
+-Harcama ekleme komutunda tutar olarak tamsayı haricinde gerçek sayı girişi yapmak
+
+-Harcama ekleme komutunda tutar olarak 10.000 on bin'den fazla tutar girmek
+
+-Tüm komutların tamamında büyük karakter kullanımı yapmak
 
 
 KULLANILAN DOSYALAR:
