@@ -15,6 +15,8 @@ KOMUTLAR:
 HATALI KOMUTLAR:
 -"./harcama" ile başlamayan tüm komut girişimleri
 
+-Sadece "./harcama"dan ibaret komut girişimi
+
 -Harcama ekleme komutu için "./harcama"dan sonra gelen "ekle"den sonra 3 adet, ilki gg-aa-yyyy formatında tarih, ikincisi kategori, üçüncüsü tutar olmak üzere boşluk karakterleri ile ayrılmış 3 adet giriş yapmamak.
 
 -Harcamaları listeleme komutu için "./harcama"dan sonra gelen "liste"den sonra sadece senenin ayını belirten aa-yyyy formatında bir adet tarihsel giriş yapmamak.
@@ -23,7 +25,7 @@ HATALI KOMUTLAR:
 
 -Tüm tarih girişlerinde artık-sene olmayan senelerde 29 Şubat, veya 31 Nisan gibi gerçekte var olmayan herhangi bir tarihsel giriş yapmak
 
--Tüm tarih girişlerinde rakam ve "-" tire karakteri haricinde herhangi bir karakter girişi yapmak
+-Tüm tarih girişlerinde rakam ve tire "-" karakteri haricinde herhangi bir karakter girişi yapmak
 
 -Tüm tarih girişlerinde gelecek zaman veya 01-01-1800 tarihinden daha geri tarihleri girmek
 
@@ -39,14 +41,34 @@ HATALI KOMUTLAR:
 
 -Harcama ekleme komutunda tutar olarak 10.000 on bin'den fazla tutar girmek
 
--Tüm komutların tamamında büyük karakter kullanımı yapmak
+-Tüm komutların tamamında büyük harf kullanımı yapmak
 
 
-KULLANILAN DOSYALAR:
+
+KULLANILAN DOSYA(LAR):
+harcamalar.txt:
+(Örnek 2 satır):
+07-10-2026 market 1000
+08-10-2026 market 200
+
+Dosya mevcut değilse dosya ekleme komutu ile bir harcama eklenene kadar, listeleme ve kategori özetleme komutları Dosya yok hatası verir.
 
 
 
 PROGRAMIN YAPMADIKLARI:
+-Günün kategori özetini vermez.
+-Günün toplam harcamasını vermez.
+-Bir senelik kategori özetini vermez.
+-Bir senelik toplam harcamayı vermez.
+-O ana kadarki kategori özetini vermez.
+-O ana kadarki toplam harcamayı vermez.
+-Aynı anda birden fazla harcama kaydı girişi almaz.
+-Tam sayı harici gerçek sayı tutar girişi almaz.
+-Komutlarda büyük harf toleransı yoktur.
+-Ay içinde INT_MAX'ı aşan toplam tutarlarda, listeleme ve kategori özetleme komutları hatalı sonuç verir ve hata mesajı vermez.
+-Kategori oluşturmaz.
+-market kategorisi haricinde bir kategori mevcut değildir.
+-Tarih girişlerinde ayıraç olarak tire "-" karakteri haricinde herhangi bir ayıraç kabul etmez.
 
 
 
