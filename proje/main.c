@@ -2,6 +2,7 @@
 #include <string.h>
 struct Kategoriler {
     char kategori[21];
+    int toplam_tutar;
     struct Kategoriler* sonraki;
 };
 struct Harcamalar {
@@ -12,9 +13,6 @@ int main(int argc, char* argv[])
 {
     struct Kategoriler* dugum_kat;
     struct Harcamalar* dugum_har;
-    //DOSYADAN OKUYUP HARCAMA BAĞLI LİSTESİNİ DOLDUR
-    //DOSYADAN OKUYUP KATEGORİ BAĞLI LİSTESİNİ DOLDUR
-    //AMA BUNU BAŞARILI KOMUT GİRİŞİMİNDEN SONRA YAP (HER BİR KOMUTTA)
 
     if (argc < 3 || argc > 5 || argc == 4) {
         printf("komut taninmadi1\n");
@@ -102,17 +100,18 @@ int main(int argc, char* argv[])
 
 
 
-
-
     
     else if (argc == 3) {
         if (!strcmp(argv[1], "liste")) {
             printf("listeleme komutuna gelindi\n");
             if (gecerli_ay_tarihi_mi(argv[1])) {
                 int okuyup_basma_ret = dosyadan_ay_tarihini_baz_alip_anbean_okuyup_basmak_icin_fonksiyon_adi(argv[1]);
-                if (!okuyup_basma_ret) {
+                if (okuyup_basma_ret == -1) {
                     printf("Dosya Acilamadi\n");
                     return 1;
+                }
+                else if (okuyup_basma_ret == 0) {
+                    printf("Girilen Ay Icin Harcama Kaydi Yok\n");
                 }
             }
             else {
@@ -127,17 +126,27 @@ int main(int argc, char* argv[])
         else if (!strcmp(argv[1], "ozet")) {
             printf("ozetleme komutuna gelindi\n");
             if (gecerli_ay_tarihi_mi(argv[1])) {
-                //dosyadan oku
-                //harcamalar ve kategori düğümleri doldur
-
-                //düğümleri müğümleri doldurma
-                //git şunu yap, fonksiyonda 
-                //sadece kategori düğümü sırala (bu kategorinin sıralandığı tek yer)
-                //mevcut seçili kategori baz alınarak tüm harcama listesi tara (onaylananlar, geçici toplama dahil et, NULL'a ulaşınca direkt basıp sonraki kategori düğümüne geç aynısını yap, kategoride NULL'a ulaşınca döngüden çık)
-                //boşalt ve çık
+                int toplam_hesaplama_ret = ozetleme_komutu_icin_dosyadan_okurken_dugum_kat_doldurup_denetim_yapip_dugum_kattaki_toplam_tutari_dolduran_fonksiyon_adi(&dugum_kat); //dugum_har doldurulmayacak.
+                if (toplam_hesaplama_ret == 1) {
+                    printf("Dosya Acilamadi\n");
+                    return 1;
+                }
+                else if (toplam_hesaplama_ret == -1) {
+                    printf("Bellek Yetersiz\n");
+                    liste_bosalt(&dugum_kat);
+                    return 1;
+                }
+                else if (toplam_hesaplama_ret == 2) {
+                    printf("Dosya Bos\n");
+                    return 1;
+                }
+                ozetleme_komutu_icin_dugum_kat_basma_fonksiyon_adi(dugum_kat);
+                liste_bosalt(&dugum_kat);
+                return 0;
             }
             else {
-
+                printf("Gecerli Bir Ay Tarihi Girilmedi");
+                return 1;
             }
         }
 
