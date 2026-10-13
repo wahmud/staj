@@ -6,13 +6,14 @@
 5:  " ./dosya "                                         ---------       derlenmiş dosyayı çalıştırır
 6:  " mv dosya.c klasor1/klasor2/dosya.c "              ---------       dosya.c'yi bu adrese taşır
 7:  " mv dosya ../ "                                    ---------       dosyayı bir üste taşır
-8:  " ls "                                              ---------       bulunduğumuz noktadaki dosyaların klasörlerin adını yazar
+8:  " ls (klasor)"                                      ---------       bulunduğumuz noktadaki veya verdiğimiz klasördeki dosyaların ve klasörlerin adını yazar
 9:  " cd "                                              ---------       konumu terk eder
 10:  " cd .. "                                          ---------       bir üste geçer
 11: " cd klasörünadı "                                  ---------       eğer mevcutsa verilen konuma geçer.
 12: " printf '(GIRIS)' | ./program                      ---------       Programı çalıştırır, GIRIS'i stdin'den programa verir, bir sonraki giriş için ise EOF gönderir. (ipucu: 'a\n1\n2' şeklindeki bir girişte a (enter) 1 (enter) 2 (enter) şeklinde elle girmiş gibi olur sadece sonraki girişlerde EOF sıkıntısı var)
 00: " cat dosya.txt "                                   ---------       txt uzantılı dosya içeriğini terminale basıyor
 00: " rm -f dosya.c "                                   ---------       dosyayı siler
+00: " grep -i 'Aranıyor' dosya.c "                      ---------       Aranıyor'u verilen dosya.c'de arar ve bulduklarını listeler
 
 --  git komutları: 
 
