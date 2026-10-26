@@ -13,38 +13,38 @@ KOMUTLAR:
 
 
 HATALI KOMUTLAR:
--"./harcama" ile başlamayan tüm komut girişimleri
+-Sadece "./harcama"dan ibaret komut girişimi için "Komut girilmedi"
 
--Sadece "./harcama"dan ibaret komut girişimi
+-./harcama'dan sonra ekle, liste, ozet harici bir girdi yapma için "Komut taninmadi"
 
--Tüm komutlarda çift tırnak içinde boşluk karakterleri kullanmak
+-Ekleme komutunda "ekle"de büyük harf kullanma (örn. EKLE) için "Komut Taninmadi"
+-Ekleme komutu için ekle'den sonra 3 adet giriş yapmamak:
+    -0 adet giriş için "Tarih Girilmedi"
+    -1 adet giriş için "Kategori girilmedi
+    -2 adet giriş için "Tutar Girilmedi"
+-Ekleme komutu için geçersiz girişler yapmak:
+    -Tarih için takvimde bulunmayan ve gelecek zaman ve 1800 yılından geri tarih girmek ve 10 adetten fazla karakter girmek ve rakam-tire karakterleri haricinde herhangi bir karakter girişi yapmak; durumlarının her biri için "Geçersiz Tarih Girildi"
+    -Kategori için 20 adet karakterden büyük giriş yapmak ve boşluk karakterli kategori ismi vermeye çalışmak durumları için "Gecersiz Kategori Girildi"
+    -Tutar için negatif değer girmek için "Tutar Negatif Olamaz"
+    -Tutar için sıfır değerini girmek için "Tutar 0 Olamaz"
+    -Tutar için tam sayı harici gerçek sayı girmek için "Tutar Gercek Sayi Olamaz"
+    -Tutar için 10.000 değerini geçen tutar girmek için "Tutar 10.000'den Fazla Olamaz"
+-NOT: Ekleme komutunda tüm girişlerin geçersiz olması durumunda sadece ilk tespit edilen kısım için hata mesajı verilir devamına bakılmaz.
 
--Harcama ekleme komutu için "./harcama"dan sonra gelen "ekle"den sonra 3 adet, ilki gg-aa-yyyy formatında tarih, ikincisi kategori, üçüncüsü numerik tutar olmak üzere boşluk karakterleri ile ayrılmış 3 adet giriş yapmamak.
+-Listeleme komutunda "liste"de büyük harf kullanma için "Komut Taninmadi"
+-Listeleme komutu için liste'den sonra 1 adet giriş yapmama için "Tarih Girilmedi"
+-Listeleme komutunda için takvimde bulunmayan ve gelecek zaman ve 1800 yılından geri tarih girmek ve 7 adetten fazla karakter girmek ve rakam-tire karakterleri haricinde herhangi bir karakter girişi yapmak; durumlarının her biri için "Geçersiz Tarih Girildi"
 
--Harcamaları listeleme komutu için "./harcama"dan sonra gelen "liste"den sonra sadece senenin ayını belirten aa-yyyy formatında bir adet tarihsel giriş yapmamak.
+-Özetleme komutunda "ozet"te büyük harf kullanma için "Komut Taninmadi"
+-Özetleme komutu için ozet'ten sonra 1 adet giriş yapmama için "Tarih Girilmedi"
+-Özetleme komutunda için takvimde bulunmayan ve gelecek zaman ve 1800 yılından geri tarih girmek ve 7 adetten fazla karakter girmek ve rakam-tire karakterleri haricinde herhangi bir karakter girişi yapmak; durumlarının her biri için "Geçersiz Tarih Girildi"
 
--Kategorileri özetleme komutu için "./harcama"dan sonra gelen "ozet"ten sonra sadece senenin ayını belirten aa-yyyy formatında bir adet tarihsel giriş yapmamak.
+-Tüm komutlarda çift tırnak içinde boşluk karakterleri kullanma için "Cift Tirnak Icinde Bosluk Karakteri Kullanılamaz"
 
--Tarih girişlerinde artık-sene olmayan senelerde 29 Şubat, veya 31 Nisan gibi takvimde var olmayan herhangi bir tarihsel giriş yapmak
-
--Tüm tarih girişlerinde rakam ve tire "-" karakteri haricinde herhangi bir karakter girişi yapmak
-
--Tüm tarih girişlerinde gelecek zaman veya 01-01-1800 tarihinden daha geri tarihleri girmek
-
--Tüm tarih girişlerinde 10 adetten fazla karakter girişi yapmak
-
--Harcama ekleme komutunda kategori için 20'den fazla karakter ve boşluk ile ayrılmış giriş yapmak
-
--Harcama ekleme komutunda tutar olarak negatif değer girmek
-
--Harcama ekleme komutunda tutar olarak sıfır değerini girmek.
-
--Harcama ekleme komutunda tutar olarak tamsayı haricinde gerçek sayı girişi yapmak
-
--Harcama ekleme komutunda tutar olarak 10.000 on bin'den fazla tutar girmek
-
--Kategori hariç tüm komutların tamamında büyük harf kullanımı yapmak
-
+-"Komut Taninmadi" ve "Komut Girilmedi" durumlarında programın nasıl çalıştığının gösterimi:
+"Ekleme Komutu icin: ./harcama ekle gg-aa-yyyy [kategori] [sayi]
+Listeleme Komutu Icin: ./harcama liste aa-yyyy
+Kategori Ozetleme Komutu Icin: ./harcama ozet aa-yyyy"
 
 
 KULLANILAN DOSYA(LAR):
@@ -72,102 +72,100 @@ PROGRAMIN YAPMADIKLARI:
 -Herhangi bir silme işlemi yapmaz.
 
 
+
 2. PROGRAM DOSYALARI
 dosya.h:
-    int kayitlari_oku_har(struct Harcamalar**);
-    int kayitlari_yaz(struct Harcamalar*);
-    int kayitlari_oku_kat(struct Kategoriler**);
+    int dosyadan_oku_har(struct Harcamalar**);
+    int dosyadan_oku_kat(struct Kategoriler*, char*);
+    int dosyaya_yaz(struct Harcamalar*);
+    int dosyadan_ekrana_basma(char*);
 dosya.c
-    kayitlari_oku_har:
-        -1 malloc'un başarısız olduğunu bildirir
-    kayitlari_oku_kat:
-        -1 dugum_ekle_kat'ın malloc'unun başarısız olduğunu bildirir
-    kayitlari_yaz:
-        1 dosyanın açılamadığını bildirir
+    int dosyadan_oku_har(struct Harcamalar** bas_pointer);
+        -Dosyadan Harcamalar yapısını kullanarak bağlı liste olarak belleğe okur.
+    int dosyadan_oku_kat(struct Kategoriler* dugum, char* ay_tarihi);
+        -Dosyadan Kategoriler yapısını kullanarak bağlı liste olarak belleğe okur, ek olarak argüman verilen ay-tarihini de kontrol eder.
+    int dosyaya_yaz(struct Harcamalar* dugum);
+        -Harcamalar yapısndan oluşturulan bağlı listeyi dosyaya yazar.
+    int dosyadan_ekrana_basma(char* ay_tarihi);
+        -Dosyadaki satırları ekrana basar, ay-tarihini kontrol eder.
+
 
 
 harcama.h:
     int komut_dogrulama(int, char**);
-    int dosyadan_ekrana_basma(char*);
-    ozetleme_komutu_icin_dosyadan_okurken_dugum_kat_doldurup_siralayip_denetim_yapip_dugum_kattaki_toplam_tutari_dolduran_fonksiyon_adi(struct Kategoriler**);
-    void ozetleme_komutu_icin_dugum_kat_basma_fonksiyon_adi(struct Kategoriler*);
-    int gecerli_kat_mi(char*);
+    void hata_mesaji_basma(int);
+    int gecerli_kat_mi(char* kategori);
+    int gecerli_gun_tarihi_mi(char* tarih);
+    int gecerli_ay_tarihi_mi(char* tarih);
 
 harcama.c:
-    komut_dogrulama:
-        1  ekle komutunun çağırıldığını bildirir
-        11 ekle komutunun 1 numaralı hatasını bildirir, gecerli_gun_tarihi_mi'nin false döndürdüğünü bildirir
-        12 ekle komutunun 2 numaralı hatasını bildirir, gecerli_kat_mi'nin false döndürdüğünü bildirir
-        13 ekle komutunun 3 numaları hatasını bildirir
-        14 ekle komutunun 4 numaralı hatasını bildirir
-        15 ekle komutunun 5 numaralı hatasını bildirir
-        16 ekle komutunun 6 numaralı hatasını bildirir
-        17 ekle komutunun 7 numaralı hatasını bildirir
-        2  liste komutunun çağırıldığını bildirir
-        21 liste komutunun 1 numaralı hatasını bildirir, gecerli_ay_tarihi_mi'nin false döndürdüğünü bildirir
-        3  ozet komutunun çağırıldığını bildirir
-        31 ozet komutunun 1 numaralı hatasını bilrdirir, gecerli_ay_tarihi_mi'nin false döndürdüğünü bildirir
-        0 tanımlı olmayan komut çağrısını bildirir
-        -1 -1 numaralı hatayı bildirir
-    dosyadan_ekrana_basma:
-        -1 dosyanın açılamadığını bildirir
-        0 verilen tarih ile alakalı bir kayıt olmadığını bildirir
+    int komut_dogrulama(int argc, char** argv);
+        -Komutun geçerliliğini kontrol eder, dönüş değeri ile durumu belirtir.
+    void hata_mesaji_basma(int hatali_komut);
+        -Komut hatasını ekrana basar.
+    int gecerli_kat_mi(char* kategori);
+        -Kategorinin geçerli olup olmadığını kontrol eder.
+    int gecerli_gun_tarihi_mi(char* tarih);
+        -Tarihin geçerli olup olmadığını kontrol eder.
+    int gecerli_ay_tarihi_mi(char* tarih);
+        -Ay-tarihinin geçerli olup olmadığını kontrol eder.
 
-    ozetleme_komutu_icin_dosyadan_okurken_dugum_kat_doldurup_siralayip_denetim_yapip_dugum_kattaki_toplam_tutari_dolduran_fonksiyon_adi:
-        1 dosyanın açılamadığını bildirir
-        -1 kayitlari_oku_kat'ın malloc'unun başarısız olduğunu bildirir
-        2 dosyanın boş olduğunu bildirir
-
-    ozetleme_komutu_icin_dugum_kat_basma_fonksiyon_adi:
-        dönüş değeri yok
-
-    gecerli_kat_mi:
-        0 kriterlere uygun olmayan kategori girişini bildirir
-        1 kriterlere uygun olan kategori girişini bildirir
 
 
 liste.h:
-    struct Harcamalar* dugum_ekle_har(struct Harcamalar**, char*);
-    struct Kategoriler* dugum_ekle_kat(struct Kategoriler**, struct Kategoriler*);
+    struct Harcamalar {
+        char tarih[11];
+        char kategori[21];
+        int tutar;
+        struct Harcamalar* sonraki;
+    };
+    struct Kategoriler {
+        char kategori[21];
+        int toplam;
+        struct Kategoriler* sonraki;
+    };
+    struct Harcamalar* dugum_ekle_har(struct Harcamalar**, struct Harcamalar harcamalar);
+    struct Kategoriler* dugum_ekle_kat(struct Kategoriler**);
     void liste_bosalt_har(struct Harcamalar**);
-    void liste_bosalt_kat(struct Kategoriler**);
-    void liste_sirala_har(struct Harcamalar**);
-    void liste_sirala_kat(struct Kategoriler**);
-    struct Kategoriler* liste_ara(struct Kategoriler* bas, char* ad);
+    struct Kategoriler* liste_bosalt_kat(struct Kategoriler**);
+    void liste_tarihsel_sirala(struct Harcamalar**);
+    void liste_kategori_sirala(struct Kategoriler**);
+    int kategori_toplamlari_ekle(struct Kategoriler*, char*);
+    struct Kategoriler* liste_ara(struct Kategoriler*, char*);
+    void liste_ozet_bas(struct Kategoriler*);
 
 liste.c:
-    dugum_ekle_har:
-        NULL malloc'un başarısız olduğunu bildirir
-    dugum_ekle_kat:
-        NULL malloc'un başarızı olduğunu bildirir
-    liste_bosalt_har:
-        dönüş değeri yok
-    liste_bosalt_kat:
-        dönüş değeri yok
-    liste_sirala_har:
-        dönüş değeri yok
-    liste_sirala_kat:
-        dönüş değeri yok
-    liste_ara:
-        bulduğu kategori bağlı listesine ait düğüm adresini döndürür
+    struct Harcamalar* dugum_ekle_har(struct Harcamalar** bas_pointer, struct Harcamalar harcamalar);
+        -Harcamalar yapısının bağlı listesinin sonuna yeni düğüm ekler, veya ilk düğümü doldurur.
+    struct Kategoriler* dugum_ekle_kat(struct Kategoriler** bas_pointer);
+        -Kategoriler yapısının bağlı listesinin sonuna yeni düğüm ekler, veya ilk düğümü doldurur.
+    void liste_bosalt_har(struct Harcamalar** bas_pointer);
+        -Harcamalar yapısının bağlı listesini tamamen free eder.
+    void liste_bosalt_kat(struct Kategoriler** bas_pointer);
+        -Kategoriler yapısının bağlı listesini tamamen free eder.
+    void liste_tarihsel_sirala(struct Harcamalar** bas_pointer);
+        -Harcamalar yapısının bağlı listesinin düğümlerini tarihsel olarak sıralar.
+    void liste_kategori_sirala(struct Kategoriler** bas_pointer);
+        -Kategori bağlı listesinin düğümlerini kategori dizisine göre alfabetik sıralar.
+    int kategori_toplamlari_ekle(struct Kategoriler* dugum, char* ay_tarihi);
+        -Dosyadan okuduğu satırdaki tutarı ilgili kategori düğümünün toplam elemanına ekler, ay-tarihini kontrol eder.
+    struct Kategoriler* liste_ara(struct Kategoriler* dugum, char* kategori);
+        -Kategori bağlı listesinde aranan düğümü bulur ve adresini döndürür.
+    void liste_ozet_bas(struct Kategoriler*);
+        -Kategori bağlı listesini ekrana basar.
+
+
 
 
 tarih.h:
     #define  isleap(x)  (x%4 == 0  ?  (x%100 == 0  ?  x%400 == 0  :  1)  :  0)
-    int is_real_date(int, int, int);
-    int gecerli_gun_tarihi_mi(char*);
-    int gecerli_ay_tarihi_mi(char*);
+    int is_real_date(int gun, int ay, int yil);
 
 tarih.c:
-    is_real_date:
-        0 yanlış takvim tarihi girildiğini bildirir
-        1 doğru takvim tarihi girildiğini bildirir
-    gecerli_gun_tarihi_mi:
-        0 kriterlere uygun olmayan tarih girişi olduğunu bildirir
-        1 kriterlere uygun olan tarih girişi olduğunu bildirir
-    gecerli_ay_tarihi_mi:
-        0 kriterlere uygun olmayan ay tarihi girişi olduğunu bildirir
-        1 kriterlere uygun olan ay tarihi girişi olduğunu bildirir
+    int is_real_date(int gun, int ay, int yil);
+        -Girilen gün ay ve yıl değerlerinin takvimde geçerli bir tarihi ifade edip etmediğini kontrol eder.
+
+
 
 main.c:
-    tüm program buradan yürütülür
+    Tüm program buradan yürütülür.
