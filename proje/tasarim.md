@@ -76,13 +76,13 @@ PROGRAMIN YAPMADIKLARI:
 2. PROGRAM DOSYALARI
 dosya.h:
     int dosyadan_oku_har(struct Harcamalar**);
-    int dosyadan_oku_kat(struct Kategoriler*, char*);
+    int dosyadan_oku_kat(struct Kategoriler**, char*);
     int dosyaya_yaz(struct Harcamalar*);
     int dosyadan_ekrana_basma(char*);
 dosya.c
     int dosyadan_oku_har(struct Harcamalar** bas_pointer);
         -Dosyadan Harcamalar yapısını kullanarak bağlı liste olarak belleğe okur.
-    int dosyadan_oku_kat(struct Kategoriler* dugum, char* ay_tarihi);
+    int dosyadan_oku_kat(struct Kategoriler** dugum, char* ay_tarihi);
         -Dosyadan Kategoriler yapısını kullanarak bağlı liste olarak belleğe okur, ek olarak argüman verilen ay-tarihini de kontrol eder.
     int dosyaya_yaz(struct Harcamalar* dugum);
         -Harcamalar yapısndan oluşturulan bağlı listeyi dosyaya yazar.
@@ -92,6 +92,15 @@ dosya.c
 
 
 harcama.h:
+    struct Kayit_Har {
+    char tarih[11];
+    char kategori[21];
+    int tutar;
+    };
+    struct Kayit_Kat {
+        char kategori[21];
+        int toplam;
+    };
     int komut_dogrulama(int, char**);
     void hata_mesaji_basma(int);
     int gecerli_kat_mi(char* kategori);
@@ -114,14 +123,11 @@ harcama.c:
 
 liste.h:
     struct Harcamalar {
-        char tarih[11];
-        char kategori[21];
-        int tutar;
+        struct Kayit_Har kayit;
         struct Harcamalar* sonraki;
     };
     struct Kategoriler {
-        char kategori[21];
-        int toplam;
+        struct Kayit_Kat kayit;
         struct Kategoriler* sonraki;
     };
     struct Harcamalar* dugum_ekle_har(struct Harcamalar**, struct Harcamalar harcamalar);
